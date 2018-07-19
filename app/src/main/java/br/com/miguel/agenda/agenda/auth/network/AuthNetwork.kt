@@ -46,8 +46,14 @@ object AuthNetwork {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response ->
 
-                    response?.data?.let {
-                        onSuccess(it)
+                    response.headers().get("uid")
+
+                    response.body()?.data?.let {usuario ->
+                        usuario.uid = response.headers().get("uid")
+                        usuario.acessToken = response.headers().get("access-token")
+                        usuario.client = response.headers().get("client")
+
+                        onSuccess(usuario)
                     }
 
                 }, {
