@@ -20,35 +20,39 @@ object AuthNetwork {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create()).build()
     }
 
-    fun criarUsuario(user: Usuario, onSuccess: (usuario: Usuario) -> Unit, onFailure: () -> Unit){
+    fun criarUsuario(user: Usuario, onSuccess: (usuario: Usuario) -> Unit, onFailure: () -> Unit) {
         loginAPI.criarUsuario(user)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({usuario ->
+                .subscribe({ usuario ->
 
-                    usuario?.let{
+                    usuario?.data?.let {
 
-                        Log.d("tag", "Email: ${usuario.email}")
                         onSuccess(it)
 
-                        }
+                    }
 
-                    } ,{
+                }, {
 
                     onFailure()
 
                 })
     }
 
-    fun logarUsuario(user: Usuario, onSuccess:() -> Unit, onFailure:() -> Unit){
-        loginAPI.logarUsuario(user).subscribeOn(Schedulers.io())
+    fun logarUsuario(user: Usuario, onSuccess: (usuario: Usuario) -> Unit, onFailure: () -> Unit) {
+
+        loginAPI.logarUsuario(user)
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({usuario ->
-                    usuario?.let{
-                    Log.d("tag", "Email: ${it.email}")
-                 }
+                .subscribe({ response ->
+
+                    response?.data?.let {
+                        onSuccess(it)
+                    }
+
                 }, {
                     onFailure()
                 })
+
     }
 }
