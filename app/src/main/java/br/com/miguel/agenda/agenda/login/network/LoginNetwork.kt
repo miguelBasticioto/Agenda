@@ -25,12 +25,18 @@ object LoginNetwork {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({usuario ->
+
                     usuario?.let{
+
+                        Log.d("tag", "Email: ${usuario.email}")
                         onSuccess(it)
+
                         }
+
                     } ,{
-                    Log.d("tag", it.message)
-                    onFailure()
+
+                    Log.d("tag", "Mensagem:${it.message}")
+
                 })
     }
 }

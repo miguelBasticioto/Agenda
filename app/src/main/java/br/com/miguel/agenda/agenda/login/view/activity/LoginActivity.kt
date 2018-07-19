@@ -1,6 +1,7 @@
 package br.com.miguel.agenda.agenda.login.view.activity
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import br.com.miguel.agenda.R
 import br.com.miguel.agenda.agenda.login.business.LoginBusiness
@@ -17,7 +18,11 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setupCriarButton(){
        criarButton.setOnClickListener{
-           LoginBusiness.criarUsuario(emailEditText.text.toString(), passwordEditText.text.toString())
+           LoginBusiness.criarUsuario(emailEditText.text.toString(), passwordEditText.text.toString(), {
+
+           }, {
+               Snackbar.make(it, "Usuário já cadastrado", Snackbar.LENGTH_SHORT).show()
+           })
        }
     }
 }
