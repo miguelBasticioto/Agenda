@@ -4,9 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
-import br.com.miguel.agenda.ContatosActivity
 import br.com.miguel.agenda.R
 import br.com.miguel.agenda.agenda.auth.business.AuthBusiness
+import br.com.miguel.agenda.agenda.contato.view.activity.ContatosActivity
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_login.*
 
