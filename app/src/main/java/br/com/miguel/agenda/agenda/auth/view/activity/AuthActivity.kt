@@ -34,6 +34,7 @@ class AuthActivity : AppCompatActivity() {
     private fun setupEntrarButton(){
         entrarButton.setOnClickListener{ view->
             AuthBusiness.logarUsuario(emailEditText.text.toString(), passwordEditText.text.toString(), {
+                //chamar proxima tela
 
             }, {
                 Snackbar.make(view, "Login ou senha inválidos", Snackbar.LENGTH_SHORT).show()

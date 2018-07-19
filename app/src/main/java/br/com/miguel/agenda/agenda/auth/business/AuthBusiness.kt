@@ -3,7 +3,7 @@ package br.com.miguel.agenda.agenda.auth.business
 import android.util.Log
 import br.com.miguel.agenda.agenda.auth.module.Usuario
 import br.com.miguel.agenda.agenda.auth.network.AuthNetwork
-import br.com.miguel.agenda.agenda.database.AuthDatabase
+import br.com.miguel.agenda.agenda.auth.database.AuthDatabase
 
 object AuthBusiness {
     fun criarUsuario(email: String, senha: String, onSuccess:(usuario: Usuario) -> Unit, onFailure:() -> Unit){
@@ -32,6 +32,8 @@ object AuthBusiness {
         user.password = senha
 
         AuthNetwork.logarUsuario(user , {
+            //proxima tela
+
 
             onSuccess(it)
         }, {

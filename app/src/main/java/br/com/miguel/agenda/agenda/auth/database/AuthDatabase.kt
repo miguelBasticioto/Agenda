@@ -1,4 +1,4 @@
-package br.com.miguel.agenda.agenda.database
+package br.com.miguel.agenda.agenda.auth.database
 
 import br.com.miguel.agenda.agenda.auth.module.Usuario
 import io.realm.Realm
