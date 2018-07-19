@@ -12,13 +12,6 @@ object AuthBusiness {
         user.password = senha
         user.passwordConfirmation = senha
         AuthNetwork.criarUsuario(user , {
-            //Gravar no banco
-            AuthDatabase.salvarUsuario(it, {
-                Log.d("tag", "sucesso")
-            }, {
-
-            })
-
             onSuccess(it)
         }, {
             onFailure()
@@ -32,9 +25,12 @@ object AuthBusiness {
         user.password = senha
 
         AuthNetwork.logarUsuario(user , {
-            //proxima tela
 
+            AuthDatabase.salvarUsuario(it, {
+                Log.d("tag", "Usuario salvo com sucesso")
+            }, {
 
+            })
             onSuccess(it)
         }, {
             onFailure()
