@@ -1,9 +1,10 @@
 package br.com.miguel.agenda.agenda.auth.view.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
+import br.com.miguel.agenda.ContatosActivity
 import br.com.miguel.agenda.R
 import br.com.miguel.agenda.agenda.auth.business.AuthBusiness
 import io.realm.Realm
@@ -35,6 +36,13 @@ class AuthActivity : AppCompatActivity() {
         entrarButton.setOnClickListener{ view->
             AuthBusiness.logarUsuario(emailEditText.text.toString(), passwordEditText.text.toString(), {
                 Snackbar.make(view, "Logado com sucesso", Snackbar.LENGTH_SHORT).show()
+
+                val extraBundle = Bundle()
+                extraBundle.putInt("id", it.id)
+
+                val intent = Intent(this, ContatosActivity::class.java)
+                intent.putExtras(extraBundle)
+                startActivity(intent)
             }, {
                 Snackbar.make(view, "Login ou senha inválidos", Snackbar.LENGTH_SHORT).show()
             })

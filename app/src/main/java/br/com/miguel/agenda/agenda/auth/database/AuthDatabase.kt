@@ -14,4 +14,5 @@ object AuthDatabase {
             onSuccess()
         }
     }
+
 }
