@@ -6,6 +6,7 @@ import io.realm.RealmObject
 open class Usuario : RealmObject(){
     var email: String? = null
     var password: String? = null
+
     @SerializedName("password_confirmation")
     var passwordConfirmation: String? = null
 

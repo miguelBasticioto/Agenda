@@ -15,4 +15,15 @@ object LoginBusiness {
             onFailure()
         })
     }
+
+    fun logarUsuario(email: String, senha: String, onSuccess:() -> Unit, onFailure:() -> Unit) {
+        val user = Usuario()
+        user.email = email
+        user.password = senha
+        LoginNetwork.logarUsuario(user , {
+
+        }, {
+            onFailure()
+        })
+    }
 }

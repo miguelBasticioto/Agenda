@@ -35,8 +35,20 @@ object LoginNetwork {
 
                     } ,{
 
-                    Log.d("tag", "Mensagem:${it.message}")
+                    onFailure()
 
+                })
+    }
+
+    fun logarUsuario(user: Usuario, onSuccess:() -> Unit, onFailure:() -> Unit){
+        loginAPI.logarUsuario(user).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({usuario ->
+                    usuario?.let{
+                    Log.d("tag", "Email: ${it.email}")
+                 }
+                }, {
+                    onFailure()
                 })
     }
 }

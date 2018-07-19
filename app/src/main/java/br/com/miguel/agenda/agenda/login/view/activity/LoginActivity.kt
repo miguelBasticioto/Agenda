@@ -14,6 +14,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         setupCriarButton()
+        setupEntrarButton()
     }
 
     private fun setupCriarButton(){
@@ -24,5 +25,15 @@ class LoginActivity : AppCompatActivity() {
                Snackbar.make(it, "Usuário já cadastrado", Snackbar.LENGTH_SHORT).show()
            })
        }
+    }
+
+    private fun setupEntrarButton(){
+        entrarButton.setOnClickListener{
+            LoginBusiness.logarUsuario(emailEditText.text.toString(), passwordEditText.text.toString(), {
+
+            }, {
+                Snackbar.make(it, "Login ou senha inválidos", Snackbar.LENGTH_SHORT).show()
+            })
+        }
     }
 }
