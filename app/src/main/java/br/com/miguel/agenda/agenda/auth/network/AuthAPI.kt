@@ -1,11 +1,11 @@
-package br.com.miguel.agenda.agenda.login.network
+package br.com.miguel.agenda.agenda.auth.network
 
-import br.com.miguel.agenda.agenda.login.module.Usuario
+import br.com.miguel.agenda.agenda.auth.module.Usuario
 import io.reactivex.Observable
 import retrofit2.http.Body
 import retrofit2.http.POST
 
-interface LoginAPI {
+interface AuthAPI {
     @POST("/auth")
     fun criarUsuario(@Body usuario: Usuario) : Observable<Usuario>
 

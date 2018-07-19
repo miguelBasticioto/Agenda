@@ -1,16 +1,16 @@
-package br.com.miguel.agenda.agenda.login.network
+package br.com.miguel.agenda.agenda.auth.network
 
 import android.util.Log
-import br.com.miguel.agenda.agenda.login.module.Usuario
+import br.com.miguel.agenda.agenda.auth.module.Usuario
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-object LoginNetwork {
+object AuthNetwork {
     val loginAPI by lazy {
-        getRetrofit().create(LoginAPI::class.java)
+        getRetrofit().create(AuthAPI::class.java)
     }
 
     private fun getRetrofit(): Retrofit {

@@ -1,15 +1,15 @@
-package br.com.miguel.agenda.agenda.login.business
+package br.com.miguel.agenda.agenda.auth.business
 
-import br.com.miguel.agenda.agenda.login.module.Usuario
-import br.com.miguel.agenda.agenda.login.network.LoginNetwork
+import br.com.miguel.agenda.agenda.auth.module.Usuario
+import br.com.miguel.agenda.agenda.auth.network.AuthNetwork
 
-object LoginBusiness {
+object AuthBusiness {
     fun criarUsuario(email: String, senha: String, onSuccess:() -> Unit, onFailure:() -> Unit){
         val user = Usuario()
         user.email = email
         user.password = senha
         user.passwordConfirmation = senha
-        LoginNetwork.criarUsuario(user , {
+        AuthNetwork.criarUsuario(user , {
 
         }, {
             onFailure()
@@ -20,7 +20,7 @@ object LoginBusiness {
         val user = Usuario()
         user.email = email
         user.password = senha
-        LoginNetwork.logarUsuario(user , {
+        AuthNetwork.logarUsuario(user , {
 
         }, {
             onFailure()
