@@ -3,7 +3,9 @@ package br.com.miguel.agenda.agenda.contato.view.activity
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import br.com.miguel.agenda.R
+import br.com.miguel.agenda.agenda.contato.adapter.ContatosAdapter
 import br.com.miguel.agenda.agenda.contato.business.ContatosBusiness
+import br.com.miguel.agenda.agenda.contato.module.Contato
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_contatos.*
 
@@ -18,10 +20,16 @@ class ContatosActivity : AppCompatActivity() {
 
         Realm.init(this)
 
-        buscarUsuario(id)
+        buscarContatos(id)
     }
 
-    private fun buscarUsuario(id: Int){
-        ContatosBusiness.buscarUsuario(id)
+    private fun buscarContatos(id: Int){
+        ContatosBusiness.buscarUsuario(id){
+            setupRecyclerView(it)
+        }
+    }
+
+    private fun setupRecyclerView(contatos: List<Contato>){
+        recyclerViewContatos.adapter = ContatosAdapter(contatos)
     }
 }

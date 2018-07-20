@@ -15,4 +15,11 @@ object AuthDatabase {
         }
     }
 
+    fun buscarUsuario(id: Int, onSuccess: (usuario: Usuario) -> Unit){
+        Realm.getDefaultInstance().use { realm ->
+            val usuario = realm.where(Usuario::class.java).equalTo("id", id).findFirst()
+            onSuccess(usuario!!)
+
+        }
+    }
 }
