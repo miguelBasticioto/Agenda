@@ -1,5 +1,6 @@
 package br.com.miguel.agenda.agenda.contato.network
 
+import android.util.Log
 import br.com.miguel.agenda.agenda.auth.module.Usuario
 import br.com.miguel.agenda.agenda.contato.module.Contato
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -42,13 +43,14 @@ object ContatosNetwork {
                 })
     }
 
-    fun editarContato(uid: String, accessToken: String, client: String, contato: Contato, id: String) {
+    fun editarContato(uid: String, accessToken: String, client: String, contato: Contato, id: String ,onSuccess:() -> Unit) {
         contatosApi.editarContato(uid, accessToken, client, "application/json", contato, id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     it?.let {
-
+                        Log.d("tag", "Editado com sucesso")
+                        onSuccess()
                     }
                 })
     }

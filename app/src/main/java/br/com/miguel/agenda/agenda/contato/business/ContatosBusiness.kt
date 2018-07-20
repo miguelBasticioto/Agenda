@@ -40,7 +40,9 @@ object ContatosBusiness {
         }
     }
 
-    fun editarContato(uid: String, cliente: String, accessToken : String, contato: Contato, id: String){
-        ContatosNetwork.editarContato(uid, accessToken, cliente, contato, id)
+    fun editarContato(uid: String, cliente: String, accessToken : String, contato: Contato, id: String, onSuccess:() -> Unit){
+        ContatosNetwork.editarContato(uid, accessToken, cliente, contato, id) {
+            onSuccess()
+        }
     }
 }

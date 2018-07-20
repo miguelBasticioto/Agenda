@@ -64,12 +64,30 @@ class ContatoInfoActivity : AppCompatActivity() {
             }
         } else {
             //Editar contato
-            AuthBusiness.buscarUsuario(usuarioId) {
-                val uid = it.uid
-                val accessToken = it.accessToken
-                val cliente = it.client
+            criarContatoButton.setOnClickListener{
+                AuthBusiness.buscarUsuario(usuarioId) {
+                    val uid = it.uid
+                    val accessToken = it.accessToken
+                    val cliente = it.client
 
+                    val contato = Contato()
+                    contato.id = contatoId
+                    contato.name = nomeContatoEditText.text.toString()
+                    contato.email = emailContatoEditText.text.toString()
+                    contato.phone = telefoneContatoEditText.text.toString()
+                    contato.birth = 0
 
+                    ContatosBusiness.editarContato(uid!!,cliente!!,accessToken!!,contato,contatoId.toString()) {
+                        //chamar proxima tela
+                        val extraBundle = Bundle()
+                        extraBundle.putInt("id", usuarioId)
+
+                        val intent = Intent(this, ContatosActivity::class.java)
+                        intent.putExtras(extraBundle)
+                        startActivity(intent)
+
+                    }
+                }
             }
 
         }
