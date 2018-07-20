@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".agenda.contato.view.activity.ContatosActivity" />
-        <activity android:name=".agenda.contato.view.activity.EditarContatoActivity"></activity>
+        <activity android:name=".agenda.contato.view.activity.EditarContatoActivity" />
+        <activity android:name=".agenda.contato.view.activity.CriarContatoActivity"></activity>
     </application>
 
 </manifest>

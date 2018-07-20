@@ -11,4 +11,5 @@ open class Contato: RealmObject() {
     var email: String? = null
     var phone: String? = null
     var picture: String? = null
+
 }

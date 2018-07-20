@@ -25,4 +25,10 @@ object ContatosBusiness {
             }
         }
     }
+
+    fun criarContato(idUsuario: Int, contato: Contato){
+        AuthDatabase.buscarUsuario(idUsuario) {
+            ContatosNetwork.criarContato(it, contato)
+        }
+    }
 }

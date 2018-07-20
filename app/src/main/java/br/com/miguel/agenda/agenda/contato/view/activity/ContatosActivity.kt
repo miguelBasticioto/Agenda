@@ -1,5 +1,6 @@
 package br.com.miguel.agenda.agenda.contato.view.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import br.com.miguel.agenda.R
@@ -21,6 +22,7 @@ class ContatosActivity : AppCompatActivity() {
         Realm.init(this)
 
         buscarContatos(id)
+        setupAdicionarContatFab(id)
     }
 
     private fun buscarContatos(id: Int){
@@ -33,7 +35,15 @@ class ContatosActivity : AppCompatActivity() {
         recyclerViewContatos.adapter = ContatosAdapter(contatos)
     }
 
-    private fun setupAdicionarContatFab (){
-        //val intent = Intent(this, ContatosActivity::class.java)
+    private fun setupAdicionarContatFab (id: Int){
+        adicionarContatoFab.setOnClickListener {
+            val extraBundle = Bundle()
+            extraBundle.putInt("id", id)
+
+            val intent = Intent(this, CriarContatoActivity::class.java)
+            intent.putExtras(extraBundle)
+
+            startActivity(intent)
+        }
     }
 }
