@@ -33,4 +33,10 @@ object ContatosBusiness {
             }
         }
     }
+
+    fun buscarContato(contatoId: Int, onSuccess: (contato: Contato) -> Unit) {
+        ContatosDatabase.buscarContato(contatoId) {
+            onSuccess(it)
+        }
+    }
 }

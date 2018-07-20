@@ -3,6 +3,7 @@ package br.com.miguel.agenda.agenda.contato.view.activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import br.com.miguel.agenda.R
 import br.com.miguel.agenda.agenda.contato.business.ContatosBusiness
@@ -21,12 +22,17 @@ class ContatoInfoActivity : AppCompatActivity() {
         val contatoId = intent.getIntExtra("contatoId", -1)
         testText.text = contatoId.toString()
 
-        if(contatoId == -1) {
+        if(contatoId != -1) {
             deletarContatoButton.visibility = View.VISIBLE
-        } else {
+
             criarContatoButton.text = "Salvar"
             //Buscar contato no banco
-
+            ContatosBusiness.buscarContato(contatoId) { contato ->
+                nomeContatoEditText.setText(contato.name)
+                emailContatoEditText.setText(contato.email)
+                telefoneContatoEditText.setText(contato.phone)
+                imagemUrlContatoEditText.setText(contato.picture)
+            }
         }
 
         setupCriarContatoButton(id, contatoId)

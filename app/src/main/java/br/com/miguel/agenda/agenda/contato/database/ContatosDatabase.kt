@@ -13,4 +13,12 @@ object ContatosDatabase {
             realm.commitTransaction()
         }
     }
+
+    fun buscarContato(contatoId: Int, onSuccess:(contato: Contato) -> Unit){
+        Realm.getDefaultInstance().use { realm ->
+            val contato = realm.where(Contato::class.java).equalTo("id",contatoId).findFirst()
+            onSuccess(contato!!)
+        }
+
+    }
 }
