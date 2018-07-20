@@ -1,5 +1,6 @@
 package br.com.miguel.agenda.agenda.contato.view.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import br.com.miguel.agenda.R
@@ -27,7 +28,14 @@ class CriarContatoActivity : AppCompatActivity() {
             contato.phone = telefoneContatoEditText.text.toString()
             contato.picture = imagemUrlContatoEditText.text.toString()
 
-            ContatosBusiness.criarContato(usuarioId, contato)
+            ContatosBusiness.criarContato(usuarioId, contato) {
+                val extraBundle = Bundle()
+                extraBundle.putInt("id", usuarioId)
+
+                val intent = Intent(this, ContatosActivity::class.java)
+                intent.putExtras(extraBundle)
+                startActivity(intent)
+            }
         }
     }
 }

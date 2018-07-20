@@ -1,6 +1,5 @@
 package br.com.miguel.agenda.agenda.contato.network
 
-import android.util.Log
 import br.com.miguel.agenda.agenda.auth.module.Usuario
 import br.com.miguel.agenda.agenda.contato.module.Contato
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -32,13 +31,13 @@ object ContatosNetwork {
                 })
     }
 
-    fun criarContato(user: Usuario, contato:Contato){
+    fun criarContato(user: Usuario, contato:Contato, onSuccess:() -> Unit){
         contatosApi.criarContato(user.uid!!, user.acessToken!!, user.client!!, "application/json", contato)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     it?.let {
-                        Log.d("tag", "Id: ${it.id}")
+                        onSuccess()
                     }
                 })
     }
