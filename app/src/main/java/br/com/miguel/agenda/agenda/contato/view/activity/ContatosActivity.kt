@@ -32,4 +32,8 @@ class ContatosActivity : AppCompatActivity() {
     private fun setupRecyclerView(contatos: List<Contato>){
         recyclerViewContatos.adapter = ContatosAdapter(contatos)
     }
+
+    private fun setupAdicionarContatFab (){
+        //val intent = Intent(this, ContatosActivity::class.java)
+    }
 }

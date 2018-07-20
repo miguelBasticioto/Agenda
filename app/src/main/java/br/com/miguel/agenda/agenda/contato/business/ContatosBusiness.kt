@@ -2,6 +2,7 @@ package br.com.miguel.agenda.agenda.contato.business
 
 import android.util.Log
 import br.com.miguel.agenda.agenda.auth.database.AuthDatabase
+import br.com.miguel.agenda.agenda.contato.database.ContatosDatabase
 import br.com.miguel.agenda.agenda.contato.module.Contato
 import br.com.miguel.agenda.agenda.contato.network.ContatosNetwork
 
@@ -17,6 +18,9 @@ object ContatosBusiness {
             Log.d("tag", "\n")
 
             ContatosNetwork.buscarContatos(it.uid.toString(), it.acessToken.toString(), it.client.toString()) {
+                //Gravar no banco
+                ContatosDatabase.salvarContatos(it)
+
                 onSuccess(it)
             }
         }

@@ -18,7 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".agenda.contato.view.activity.ContatosActivity"></activity>
+        <activity android:name=".agenda.contato.view.activity.ContatosActivity" />
+        <activity android:name=".agenda.contato.view.activity.EditarContatoActivity"></activity>
     </application>
 
 </manifest>
