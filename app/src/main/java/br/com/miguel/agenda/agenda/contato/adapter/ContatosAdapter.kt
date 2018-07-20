@@ -26,4 +26,5 @@ class ContatosAdapter(contatos: List<Contato>): RecyclerView.Adapter<ContatoView
     override fun onBindViewHolder(holder: ContatoViewHolder, position: Int) {
         holder.bind(listaContatos[position])
     }
+    
 }

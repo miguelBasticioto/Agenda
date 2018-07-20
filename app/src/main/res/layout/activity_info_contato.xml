@@ -22,8 +22,7 @@
         android:hint="Nome"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="Teste Da Silva"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <EditText
         android:id="@+id/emailContatoEditText"
@@ -37,8 +36,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nomeContatoEditText"
-        android:text="email@teste.com"/>
+        app:layout_constraintTop_toBottomOf="@+id/nomeContatoEditText"/>
 
     <EditText
         android:id="@+id/telefoneContatoEditText"
@@ -52,8 +50,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailContatoEditText"
-        android:text="(85) 1234-567"/>
+        app:layout_constraintTop_toBottomOf="@+id/emailContatoEditText"/>
 
     <EditText
         android:id="@+id/imagemUrlContatoEditText"
@@ -82,6 +79,19 @@
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imagemUrlContatoEditText" />
+
+    <Button
+        android:id="@+id/deletarContatoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Deletar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/criarContatoButton"
+        android:visibility="invisible"/>
 
 
 
