@@ -1,6 +1,5 @@
 package br.com.miguel.agenda.agenda.auth.network
 
-import android.util.Log
 import br.com.miguel.agenda.agenda.auth.module.Usuario
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -50,7 +49,7 @@ object AuthNetwork {
 
                     response.body()?.data?.let {usuario ->
                         usuario.uid = response.headers().get("uid")
-                        usuario.acessToken = response.headers().get("access-token")
+                        usuario.accessToken = response.headers().get("access-token")
                         usuario.client = response.headers().get("client")
 
                         onSuccess(usuario)

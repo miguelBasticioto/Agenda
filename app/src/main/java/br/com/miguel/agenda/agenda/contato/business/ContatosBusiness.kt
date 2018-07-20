@@ -14,10 +14,10 @@ object ContatosBusiness {
         AuthDatabase.buscarUsuario(id){
             Log.d("tag", it.client.toString())
             Log.d("tag", it.uid.toString())
-            Log.d("tag", it.acessToken.toString())
+            Log.d("tag", it.accessToken.toString())
             Log.d("tag", "\n")
 
-            ContatosNetwork.buscarContatos(it.uid.toString(), it.acessToken.toString(), it.client.toString()) {
+            ContatosNetwork.buscarContatos(it.uid.toString(), it.accessToken.toString(), it.client.toString()) {
                 //Gravar no banco
                 ContatosDatabase.salvarContatos(it)
 
@@ -38,5 +38,9 @@ object ContatosBusiness {
         ContatosDatabase.buscarContato(contatoId) {
             onSuccess(it)
         }
+    }
+
+    fun editarContato(uid: String, cliente: String, accessToken : String, contato: Contato, id: String){
+        ContatosNetwork.editarContato(uid, accessToken, cliente, contato, id)
     }
 }

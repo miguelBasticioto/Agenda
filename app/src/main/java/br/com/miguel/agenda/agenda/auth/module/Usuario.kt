@@ -16,6 +16,6 @@ open class Usuario : RealmObject(){
 
     var uid: String? = null
     var client: String? = null
-    var acessToken: String? = null
+    var accessToken: String? = null
 
 }

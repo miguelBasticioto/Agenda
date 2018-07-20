@@ -32,12 +32,23 @@ object ContatosNetwork {
     }
 
     fun criarContato(user: Usuario, contato:Contato, onSuccess:() -> Unit){
-        contatosApi.criarContato(user.uid!!, user.acessToken!!, user.client!!, "application/json", contato)
+        contatosApi.criarContato(user.uid!!, user.accessToken!!, user.client!!, "application/json", contato)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     it?.let {
                         onSuccess()
+                    }
+                })
+    }
+
+    fun editarContato(uid: String, accessToken: String, client: String, contato: Contato, id: String) {
+        contatosApi.editarContato(uid, accessToken, client, "application/json", contato, id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    it?.let {
+
                     }
                 })
     }

@@ -7,9 +7,9 @@ import android.util.Log
 import android.view.View
 import br.com.miguel.agenda.R
 import br.com.miguel.agenda.agenda.auth.business.AuthBusiness
-import br.com.miguel.agenda.agenda.auth.database.AuthDatabase
 import br.com.miguel.agenda.agenda.contato.business.ContatosBusiness
 import br.com.miguel.agenda.agenda.contato.module.Contato
+import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_info_contato.*
 
 class ContatoInfoActivity : AppCompatActivity() {
@@ -17,6 +17,8 @@ class ContatoInfoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_info_contato)
+
+        Realm.init(this)
 
         val id = intent.getIntExtra("usuarioId", 0)
 
@@ -34,12 +36,7 @@ class ContatoInfoActivity : AppCompatActivity() {
                 emailContatoEditText.setText(contato.email)
                 telefoneContatoEditText.setText(contato.phone)
                 imagemUrlContatoEditText.setText(contato.picture)
-            }
 
-            AuthBusiness.buscarUsuario(id) {
-                Log.d("tag", it.uid)
-                Log.d("tag", it.client)
-                Log.d("tag", it.acessToken)
             }
         }
 
@@ -67,6 +64,14 @@ class ContatoInfoActivity : AppCompatActivity() {
             }
         } else {
             //Editar contato
+            AuthBusiness.buscarUsuario(usuarioId) {
+                val uid = it.uid
+                val accessToken = it.accessToken
+                val cliente = it.client
+
+
+            }
+
         }
     }
 }
