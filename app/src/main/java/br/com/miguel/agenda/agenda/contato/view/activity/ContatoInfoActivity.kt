@@ -16,11 +16,11 @@ class ContatoInfoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_info_contato)
 
-        val id = intent.getIntExtra("contatoId", 0)
+        val id = intent.getIntExtra("usuarioId", 0)
 
 
         val contatoId = intent.getIntExtra("contatoId", -1)
-        testText.text = contatoId.toString()
+        testText.text = id.toString()
 
         if(contatoId != -1) {
             deletarContatoButton.visibility = View.VISIBLE

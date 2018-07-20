@@ -38,7 +38,7 @@ class ContatosActivity : AppCompatActivity() {
     private fun setupAdicionarContatFab (id: Int){
         adicionarContatoFab.setOnClickListener {
             val extraBundle = Bundle()
-            extraBundle.putInt("id", id)
+            extraBundle.putInt("usuarioId", id)
 
             val intent = Intent(this, ContatoInfoActivity::class.java)
             intent.putExtras(extraBundle)
