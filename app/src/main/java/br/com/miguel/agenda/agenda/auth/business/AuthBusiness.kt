@@ -36,4 +36,10 @@ object AuthBusiness {
             onFailure()
         })
     }
+
+    fun buscarUsuario (id: Int, onSuccess: (usuario: Usuario) -> Unit){
+            AuthDatabase.buscarUsuario(id) {
+                onSuccess(it)
+            }
+    }
 }

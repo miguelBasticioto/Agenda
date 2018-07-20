@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import br.com.miguel.agenda.R
+import br.com.miguel.agenda.agenda.auth.business.AuthBusiness
+import br.com.miguel.agenda.agenda.auth.database.AuthDatabase
 import br.com.miguel.agenda.agenda.contato.business.ContatosBusiness
 import br.com.miguel.agenda.agenda.contato.module.Contato
 import kotlinx.android.synthetic.main.activity_info_contato.*
@@ -32,6 +34,12 @@ class ContatoInfoActivity : AppCompatActivity() {
                 emailContatoEditText.setText(contato.email)
                 telefoneContatoEditText.setText(contato.phone)
                 imagemUrlContatoEditText.setText(contato.picture)
+            }
+
+            AuthBusiness.buscarUsuario(id) {
+                Log.d("tag", it.uid)
+                Log.d("tag", it.client)
+                Log.d("tag", it.acessToken)
             }
         }
 

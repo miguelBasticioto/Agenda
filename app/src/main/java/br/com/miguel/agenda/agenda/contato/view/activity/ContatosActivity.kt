@@ -27,12 +27,12 @@ class ContatosActivity : AppCompatActivity() {
 
     private fun buscarContatos(id: Int){
         ContatosBusiness.buscarUsuario(id){
-            setupRecyclerView(it)
+            setupRecyclerView(it, id)
         }
     }
 
-    private fun setupRecyclerView(contatos: List<Contato>){
-        recyclerViewContatos.adapter = ContatosAdapter(contatos)
+    private fun setupRecyclerView(contatos: List<Contato>, usuarioId: Int){
+        recyclerViewContatos.adapter = ContatosAdapter(contatos, usuarioId)
     }
 
     private fun setupAdicionarContatFab (id: Int){

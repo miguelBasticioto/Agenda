@@ -17,7 +17,7 @@ class ContatoViewHolder(val view: View): RecyclerView.ViewHolder(view) {
 
     private var contatoId: Int = -1
 
-    fun bind(contato: Contato) {
+    fun bind(contato: Contato, usuarioId: Int) {
         with(view) {
             textViewNome.text = contato.name
             textViewTelefone.text = contato.phone
@@ -28,6 +28,7 @@ class ContatoViewHolder(val view: View): RecyclerView.ViewHolder(view) {
             setOnClickListener {
                 val extraBundle = Bundle()
                 extraBundle.putInt("contatoId", contatoId)
+                extraBundle.putInt("usuarioId", usuarioId)
 
                 val intent = Intent(textViewEmail.context, ContatoInfoActivity::class.java)
                 intent.putExtras(extraBundle)
