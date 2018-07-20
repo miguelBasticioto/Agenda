@@ -40,7 +40,7 @@ class ContatosActivity : AppCompatActivity() {
             val extraBundle = Bundle()
             extraBundle.putInt("id", id)
 
-            val intent = Intent(this, CriarContatoActivity::class.java)
+            val intent = Intent(this, ContatoInfoActivity::class.java)
             intent.putExtras(extraBundle)
 
             startActivity(intent)

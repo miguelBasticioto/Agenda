@@ -6,22 +6,22 @@ import android.support.v7.app.AppCompatActivity
 import br.com.miguel.agenda.R
 import br.com.miguel.agenda.agenda.contato.business.ContatosBusiness
 import br.com.miguel.agenda.agenda.contato.module.Contato
-import kotlinx.android.synthetic.main.activity_criar_contato.*
+import kotlinx.android.synthetic.main.activity_info_contato.*
 
-class CriarContatoActivity : AppCompatActivity() {
+class ContatoInfoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_criar_contato)
+        setContentView(R.layout.activity_info_contato)
 
         val id = intent.getIntExtra("id", 0)
         testText.text = id.toString()
 
-        setupAdicionarContatoButton(id)
+        setupCriarContatoButton(id)
     }
 
-    private fun setupAdicionarContatoButton(usuarioId: Int){
-        adicionarContatoButton.setOnClickListener {
+    private fun setupCriarContatoButton(usuarioId: Int){
+        criarContatoButton.setOnClickListener {
             var contato = Contato()
             contato.name = nomeContatoEditText.text.toString()
             contato.email = emailContatoEditText.text.toString()
