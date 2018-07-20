@@ -2,6 +2,7 @@ package br.com.miguel.agenda.agenda.contato.network
 
 import br.com.miguel.agenda.agenda.contato.module.Contato
 import io.reactivex.Observable
+import retrofit2.Response
 import retrofit2.http.*
 
 interface ContatosAPI {
@@ -23,4 +24,10 @@ interface ContatosAPI {
                       @Header("access-token") accessToken :String,
                       @Header("client") client:String,
                       @Header("Content-Type") type: String, @Body contato:Contato, @Path("id") id: String): Observable<Contato>
+
+    @DELETE("/contacts/{id}")
+    fun deletarContato(@Header("uid") uid:String,
+                       @Header("access-token") accessToken :String,
+                       @Header("client") client:String,
+                       @Header("Content-Type") type: String, @Path("id") id: String): Observable<Response<Void>>
 }

@@ -41,6 +41,7 @@ class ContatoInfoActivity : AppCompatActivity() {
         }
 
         setupCriarContatoButton(id, contatoId)
+        setupDeletarContatoButton(id, contatoId)
     }
 
     private fun setupCriarContatoButton(usuarioId: Int, contatoId: Int){
@@ -90,6 +91,21 @@ class ContatoInfoActivity : AppCompatActivity() {
                 }
             }
 
+        }
+    }
+
+    private fun setupDeletarContatoButton(usuarioId: Int, contatoId: Int){
+        deletarContatoButton.setOnClickListener {
+            AuthBusiness.buscarUsuario(usuarioId, {
+                ContatosBusiness.deletarContato(it.uid!!, it.client!!, it.accessToken!!, contatoId.toString()) {
+                    val extraBundle = Bundle()
+                    extraBundle.putInt("id", usuarioId)
+
+                    val intent = Intent(this, ContatosActivity::class.java)
+                    intent.putExtras(extraBundle)
+                    startActivity(intent)
+                }
+            })
         }
     }
 }

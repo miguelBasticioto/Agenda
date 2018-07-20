@@ -54,4 +54,16 @@ object ContatosNetwork {
                     }
                 })
     }
+
+    fun deletarContato(uid: String, accessToken: String, cliente: String, id: String ,onSuccess: () -> Unit){
+        contatosApi.deletarContato(uid, accessToken, cliente, "application/json", id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    it?.let {
+                        Log.d("tag", "Removido com sucesso")
+                        onSuccess()
+                    }
+                })
+    }
 }

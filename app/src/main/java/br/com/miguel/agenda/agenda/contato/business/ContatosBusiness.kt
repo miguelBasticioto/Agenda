@@ -45,4 +45,10 @@ object ContatosBusiness {
             onSuccess()
         }
     }
+
+    fun deletarContato(uid: String, cliente: String, accessToken: String, id: String, onSuccess: () -> Unit) {
+        ContatosNetwork.deletarContato(uid, cliente, accessToken, id) {
+            onSuccess()
+        }
+    }
 }
