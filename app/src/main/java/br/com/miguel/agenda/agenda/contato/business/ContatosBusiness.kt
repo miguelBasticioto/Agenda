@@ -41,13 +41,25 @@ object ContatosBusiness {
     }
 
     fun editarContato(uid: String, cliente: String, accessToken : String, contato: Contato, id: String, onSuccess:() -> Unit){
+
+        Log.d("info", uid)
+        Log.d("info", cliente)
+        Log.d("info", accessToken)
+        Log.d("info", id)
+
         ContatosNetwork.editarContato(uid, accessToken, cliente, contato, id) {
             onSuccess()
         }
     }
 
     fun deletarContato(uid: String, cliente: String, accessToken: String, id: String, onSuccess: () -> Unit) {
-        ContatosNetwork.deletarContato(uid, cliente, accessToken, id) {
+        Log.d("info", uid)
+        Log.d("info", cliente)
+        Log.d("info", accessToken)
+        Log.d("info", id)
+
+        ContatosNetwork.deletarContato(uid, accessToken, cliente, id) {
+            Log.d("tag", "deletando contato de id: ${id}")
             onSuccess()
         }
     }

@@ -24,7 +24,6 @@ class ContatoInfoActivity : AppCompatActivity() {
 
 
         val contatoId = intent.getIntExtra("contatoId", -1)
-        testText.text = id.toString()
 
         if(contatoId != -1) {
             deletarContatoButton.visibility = View.VISIBLE
@@ -97,7 +96,11 @@ class ContatoInfoActivity : AppCompatActivity() {
     private fun setupDeletarContatoButton(usuarioId: Int, contatoId: Int){
         deletarContatoButton.setOnClickListener {
             AuthBusiness.buscarUsuario(usuarioId, {
-                ContatosBusiness.deletarContato(it.uid!!, it.client!!, it.accessToken!!, contatoId.toString()) {
+                val uid = it.uid
+                val accessToken = it.accessToken
+                val cliente = it.client
+
+                ContatosBusiness.deletarContato(uid!!, cliente!!, accessToken!!, contatoId.toString()) {
                     val extraBundle = Bundle()
                     extraBundle.putInt("id", usuarioId)
 

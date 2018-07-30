@@ -14,11 +14,11 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:hint="Email"
+        android:text="asdasdg@asdasdg3.com"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="asdasdg@asdasdg.com"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/passwordEditText"

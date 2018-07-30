@@ -47,6 +47,10 @@ object AuthNetwork {
 
                     response.headers().get("uid")
 
+                    if(response.code() !== 200) {
+                        onFailure()
+                    }
+
                     response.body()?.data?.let {usuario ->
                         usuario.uid = response.headers().get("uid")
                         usuario.accessToken = response.headers().get("access-token")

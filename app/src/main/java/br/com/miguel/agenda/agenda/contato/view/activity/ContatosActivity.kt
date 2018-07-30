@@ -17,7 +17,6 @@ class ContatosActivity : AppCompatActivity() {
         setContentView(R.layout.activity_contatos)
 
         val id = intent.getIntExtra("id", 0)
-        userIdText.text = id.toString()
 
         Realm.init(this)
 
