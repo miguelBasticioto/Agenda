@@ -64,4 +64,8 @@ object AuthNetwork {
                 })
 
     }
+
+    fun logout(onSuccess: () -> Unit){
+
+    }
 }

@@ -42,4 +42,10 @@ object AuthBusiness {
                 onSuccess(it)
             }
     }
+
+    fun logout (onSuccess:() -> Unit){
+        AuthNetwork.logout() {
+            //Apagar do banco
+        }
+    }
 }
