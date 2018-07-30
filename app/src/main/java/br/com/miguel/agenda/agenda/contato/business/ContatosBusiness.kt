@@ -59,8 +59,10 @@ object ContatosBusiness {
         Log.d("info", id)
 
         ContatosNetwork.deletarContato(uid, accessToken, cliente, id) {
-            Log.d("tag", "deletando contato de id: ${id}")
-            onSuccess()
+            ContatosDatabase.deletarContato(id.toInt()) {
+                Log.d("tag", "deletando contato de id: ${id}")
+                onSuccess()
+            }
         }
     }
 }
