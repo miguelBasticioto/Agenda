@@ -22,4 +22,21 @@ object AuthDatabase {
 
         }
     }
+
+    fun limparBanco(onSuccess: () -> Unit){
+        Realm.getDefaultInstance().use { realm ->
+            realm.beginTransaction()
+            realm.deleteAll()
+            onSuccess()
+            realm.commitTransaction()
+        }
+    }
+
+    fun checarUsuario (): Usuario?{
+        val realm = Realm.getDefaultInstance()
+            realm.beginTransaction()
+            val usuario = realm.where(Usuario::class.java).findFirst()
+            realm.commitTransaction()
+            return usuario
+    }
 }

@@ -3,8 +3,10 @@ package br.com.miguel.agenda.agenda.contato.view.activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import br.com.miguel.agenda.R
 import br.com.miguel.agenda.agenda.auth.business.AuthBusiness
+import br.com.miguel.agenda.agenda.auth.view.activity.AuthActivity
 import br.com.miguel.agenda.agenda.contato.adapter.ContatosAdapter
 import br.com.miguel.agenda.agenda.contato.business.ContatosBusiness
 import br.com.miguel.agenda.agenda.contato.module.Contato
@@ -23,7 +25,7 @@ class ContatosActivity : AppCompatActivity() {
 
         buscarContatos(id)
         setupAdicionarContatFab(id)
-        setupLogoutBotao()
+        setupLogoutBotao(id)
     }
 
     private fun buscarContatos(id: Int){
@@ -48,11 +50,16 @@ class ContatosActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupLogoutBotao(){
-        logoutBotao.setOnClickListener{
+    private fun setupLogoutBotao(id: Int){
+        logoutBotao.setOnClickListener{view ->
             //Configurar botao de logout
-            AuthBusiness.logout() {
-                //Voltar para tela de login
+            AuthBusiness.buscarUsuario(id) {
+                AuthBusiness.logout(it.uid!!, it.accessToken!!, it.client!!) {
+                    Log.d("Logout", "Deslogado")
+                    //Voltar para tela de login
+                    val intent = Intent(view.context, AuthActivity::class.java)
+                    startActivity(intent)
+                }
             }
         }
     }

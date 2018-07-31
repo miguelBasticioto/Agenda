@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import br.com.miguel.agenda.R
 import br.com.miguel.agenda.agenda.auth.business.AuthBusiness
 import br.com.miguel.agenda.agenda.contato.view.activity.ContatosActivity
@@ -17,6 +18,18 @@ class AuthActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         Realm.init(this)
+
+        val usuario = AuthBusiness.checarUsuario()
+
+        if(usuario != null){
+            //proxima tela
+            val extraBundle = Bundle()
+            extraBundle.putInt("id", usuario.id)
+
+            val intent = Intent(this, ContatosActivity::class.java)
+            intent.putExtras(extraBundle)
+            startActivity(intent)
+        }
 
         setupCriarButton()
         setupEntrarButton()

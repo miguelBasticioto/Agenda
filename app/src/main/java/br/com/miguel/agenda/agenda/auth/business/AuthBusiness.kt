@@ -43,9 +43,16 @@ object AuthBusiness {
             }
     }
 
-    fun logout (onSuccess:() -> Unit){
-        AuthNetwork.logout() {
+    fun logout (uid: String, accessToken: String, client: String, onSuccess:() -> Unit){
+        AuthNetwork.logout(uid, accessToken, client) {
             //Apagar do banco
+            AuthDatabase.limparBanco() {
+                onSuccess()
+            }
         }
+    }
+
+    fun checarUsuario () : Usuario? {
+        return AuthDatabase.checarUsuario()
     }
 }
