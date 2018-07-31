@@ -19,7 +19,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".agenda.contato.view.activity.ContatosActivity" />
-        <activity android:name=".agenda.contato.view.activity.InfoContatoActivity" />
         <activity android:name=".agenda.contato.view.activity.ContatoInfoActivity"></activity>
     </application>
 

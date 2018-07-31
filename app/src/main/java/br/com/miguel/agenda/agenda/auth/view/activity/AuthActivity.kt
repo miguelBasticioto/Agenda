@@ -1,10 +1,12 @@
 package br.com.miguel.agenda.agenda.auth.view.activity
 
 import android.content.Intent
+import android.opengl.Visibility
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.View
 import br.com.miguel.agenda.R
 import br.com.miguel.agenda.agenda.auth.business.AuthBusiness
 import br.com.miguel.agenda.agenda.contato.view.activity.ContatosActivity
@@ -37,9 +39,12 @@ class AuthActivity : AppCompatActivity() {
 
     private fun setupCriarButton(){
        criarButton.setOnClickListener{ view ->
+           criarProgress.visibility = View.VISIBLE
            AuthBusiness.criarUsuario(emailEditText.text.toString(), passwordEditText.text.toString(), {
+               criarProgress.visibility = View.INVISIBLE
                Snackbar.make(view, "Usuário criado com sucesso", Snackbar.LENGTH_SHORT).show()
            }, {
+               criarProgress.visibility = View.INVISIBLE
                Snackbar.make(view, "Usuário já cadastrado", Snackbar.LENGTH_SHORT).show()
            })
        }
@@ -47,7 +52,9 @@ class AuthActivity : AppCompatActivity() {
 
     private fun setupEntrarButton(){
         entrarButton.setOnClickListener{ view->
+            entrarProgress.visibility = View.VISIBLE
             AuthBusiness.logarUsuario(emailEditText.text.toString(), passwordEditText.text.toString(), {
+
                 Snackbar.make(view, "Logado com sucesso", Snackbar.LENGTH_SHORT).show()
 
                 val extraBundle = Bundle()
@@ -56,7 +63,9 @@ class AuthActivity : AppCompatActivity() {
                 val intent = Intent(this, ContatosActivity::class.java)
                 intent.putExtras(extraBundle)
                 startActivity(intent)
+                entrarProgress.visibility = View.INVISIBLE
             }, {
+                entrarProgress.visibility = View.INVISIBLE
                 Snackbar.make(view, "Login ou senha inválidos", Snackbar.LENGTH_SHORT).show()
             })
         }
