@@ -75,6 +75,7 @@ class ContatoInfoActivity : AppCompatActivity() {
                     contato.name = nomeContatoEditText.text.toString()
                     contato.email = emailContatoEditText.text.toString()
                     contato.phone = telefoneContatoEditText.text.toString()
+                    contato.picture = imagemUrlContatoEditText.text.toString()
                     contato.birth = 0
 
                     ContatosBusiness.editarContato(uid!!,cliente!!,accessToken!!,contato,contatoId.toString()) {
