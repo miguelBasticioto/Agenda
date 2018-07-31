@@ -2,6 +2,8 @@ package br.com.miguel.agenda.agenda.contato.view.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
@@ -17,7 +19,8 @@ import kotlinx.android.synthetic.main.activity_contatos.*
 
 class ContatosActivity : AppCompatActivity() {
 
-    var id = -1
+    private var id = -1
+    private var clicado = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,10 +62,6 @@ class ContatosActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
-
-    }
-
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.logout -> {
@@ -78,5 +77,16 @@ class ContatosActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        if(clicado) {
+            finishAffinity()
+            return
+        }
+
+        clicado = true
+        Snackbar.make(recyclerViewContatos, "Clique novamente para sair", 2000).show()
+        Handler().postDelayed(Runnable{ clicado = false}, 2000)
     }
 }
