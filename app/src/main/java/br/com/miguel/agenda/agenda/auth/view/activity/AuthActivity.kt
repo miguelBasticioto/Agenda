@@ -1,11 +1,9 @@
 package br.com.miguel.agenda.agenda.auth.view.activity
 
 import android.content.Intent
-import android.opengl.Visibility
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.View
 import br.com.miguel.agenda.R
 import br.com.miguel.agenda.agenda.auth.business.AuthBusiness
@@ -46,12 +44,12 @@ class AuthActivity : AppCompatActivity() {
                criarProgress.visibility = View.INVISIBLE
                criarButton.isEnabled = true
                entrarButton.isEnabled = true
-               Snackbar.make(view, "Usuário criado com sucesso", Snackbar.LENGTH_SHORT).show()
+               Snackbar.make(view, getString(R.string.usuarioCriadoSucesso), Snackbar.LENGTH_SHORT).show()
            }, {
                criarProgress.visibility = View.INVISIBLE
                criarButton.isEnabled = true
                entrarButton.isEnabled = true
-               Snackbar.make(view, "Usuário já cadastrado", Snackbar.LENGTH_SHORT).show()
+               Snackbar.make(view, getString(R.string.usuarioCriadoFracasso), Snackbar.LENGTH_SHORT).show()
            })
        }
     }
@@ -63,7 +61,7 @@ class AuthActivity : AppCompatActivity() {
             criarButton.isEnabled = false
             AuthBusiness.logarUsuario(emailEditText.text.toString(), passwordEditText.text.toString(), {
 
-                Snackbar.make(view, "Logado com sucesso", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(view, getString(R.string.logadoSucesso), Snackbar.LENGTH_SHORT).show()
 
                 val extraBundle = Bundle()
                 extraBundle.putInt("id", it.id)
@@ -74,7 +72,7 @@ class AuthActivity : AppCompatActivity() {
                 entrarProgress.visibility = View.INVISIBLE
             }, {
                 entrarProgress.visibility = View.INVISIBLE
-                Snackbar.make(view, "Login ou senha inválidos", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(view, getString(R.string.logadoFracasso), Snackbar.LENGTH_SHORT).show()
                 entrarButton.isEnabled = true
                 criarButton.isEnabled = true
             })

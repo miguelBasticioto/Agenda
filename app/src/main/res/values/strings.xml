@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Agenda</string>
+    <string name="usuarioCriadoSucesso">Usuário criado com sucesso</string>
+    <string name="usuarioCriadoFracasso">Usuário já cadastrado</string>
+    <string name="logadoSucesso">Logado com sucesso</string>
+    <string name="logadoFracasso">Login ou senha inválidos</string>
+    <string name="semConexao">Sem conexão</string>
+    <string name="confirmarSair">Clique novamente para sair</string>
 </resources>

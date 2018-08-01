@@ -2,10 +2,8 @@ package br.com.miguel.agenda.agenda.contato.view.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.renderscript.Script
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.View
 import br.com.miguel.agenda.R
 import br.com.miguel.agenda.agenda.auth.business.AuthBusiness
@@ -66,7 +64,7 @@ class ContatoInfoActivity : AppCompatActivity() {
                 } ,{
                     criarContatoButton.isEnabled = true
                     criarContatoProgressBar.visibility = View.INVISIBLE
-                    Snackbar.make(criarContatoButton, "Sem conexão", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(criarContatoButton, getString(R.string.semConexao), Snackbar.LENGTH_SHORT).show()
                 })
 
             }
@@ -100,7 +98,7 @@ class ContatoInfoActivity : AppCompatActivity() {
                     }, {
                         criarContatoButton.isEnabled = true
                         criarContatoProgressBar.visibility = View.INVISIBLE
-                        Snackbar.make(criarContatoButton, "Sem conexão", Snackbar.LENGTH_SHORT).show()
+                        Snackbar.make(criarContatoButton, getString(R.string.semConexao), Snackbar.LENGTH_SHORT).show()
                     })
                 }
             }
@@ -110,7 +108,7 @@ class ContatoInfoActivity : AppCompatActivity() {
 
     private fun setupDeletarContatoButton(usuarioId: Int, contatoId: Int){
         deletarContatoButton.setOnClickListener {
-            AuthBusiness.buscarUsuario(usuarioId, {
+            AuthBusiness.buscarUsuario(usuarioId) {
                 deletarContatoButton.isEnabled = false
                 deletarContatoProgressBar.visibility = View.VISIBLE
                 val uid = it.uid
@@ -127,9 +125,9 @@ class ContatoInfoActivity : AppCompatActivity() {
                 }, {
                     deletarContatoButton.isEnabled = true
                     deletarContatoProgressBar.visibility = View.INVISIBLE
-                    Snackbar.make(deletarContatoButton, "Sem conexão", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(deletarContatoButton, getString(R.string.semConexao), Snackbar.LENGTH_SHORT).show()
                 })
-            })
+            }
         }
     }
 }

@@ -26,7 +26,7 @@ object ContatosNetwork {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ contatos ->
-                    contatos?.let {
+                    contatos.let {
                         onSuccess(it)
                     }
                 } ,{
@@ -39,7 +39,7 @@ object ContatosNetwork {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    it?.let {
+                    it.let {
                         onSuccess()
                     }
                 },{
@@ -52,7 +52,7 @@ object ContatosNetwork {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    it?.let {
+                    it.let {
                         Log.d("tag", "Editado com sucesso")
                         onSuccess()
                     }
@@ -66,7 +66,7 @@ object ContatosNetwork {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response ->
-                    response?.let {
+                    response.let {
                         Log.d("tag", "Deletado com sucesso")
                         Log.d("tag", response.message())
                         onSuccess()

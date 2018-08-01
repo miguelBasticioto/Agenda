@@ -72,7 +72,7 @@ class ContatosActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
+        when (item!!.itemId) {
             R.id.logout -> {
                 //Configurar botao de logout
                 AuthBusiness.buscarUsuario(id) {
@@ -82,7 +82,7 @@ class ContatosActivity : AppCompatActivity() {
                         val intent = Intent(this, AuthActivity::class.java)
                         startActivity(intent)
                     }, {
-                        Snackbar.make(toolbar, "Sem conexão", Snackbar.LENGTH_SHORT).show()
+                        Snackbar.make(toolbar, getString(R.string.semConexao), Snackbar.LENGTH_SHORT).show()
                     })
                 }
             }
@@ -97,7 +97,7 @@ class ContatosActivity : AppCompatActivity() {
         }
 
         clicado = true
-        Snackbar.make(recyclerViewContatos, "Clique novamente para sair", 2000).show()
-        Handler().postDelayed(Runnable{ clicado = false}, 2000)
+        Snackbar.make(recyclerViewContatos, getString(R.string.confirmarSair), 2000).show()
+        Handler().postDelayed({ clicado = false}, 2000)
     }
 }

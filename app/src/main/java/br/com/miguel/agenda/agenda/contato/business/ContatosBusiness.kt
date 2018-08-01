@@ -45,7 +45,7 @@ object ContatosBusiness {
     }
 
     fun buscarContatosDatabase(onSuccess: (List<Contato>) -> Unit) {
-        ContatosDatabase.buscarContatos() { listaContatos ->
+        ContatosDatabase.buscarContatos { listaContatos ->
             onSuccess(listaContatos)
         }
     }

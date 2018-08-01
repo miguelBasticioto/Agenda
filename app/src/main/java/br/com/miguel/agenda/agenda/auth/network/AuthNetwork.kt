@@ -27,9 +27,9 @@ object AuthNetwork {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ usuario ->
 
-                    usuario?.data?.let {
+                    usuario.data.let {
 
-                        onSuccess(it)
+                        onSuccess(it!!)
 
                     }
 
@@ -53,12 +53,12 @@ object AuthNetwork {
                         onFailure()
                     }
 
-                    response.body()?.data?.let {usuario ->
-                        usuario.uid = response.headers().get("uid")
-                        usuario.accessToken = response.headers().get("access-token")
-                        usuario.client = response.headers().get("client")
+                    response.body()?.data.let { usuario ->
+                        usuario?.uid = response.headers().get("uid")
+                        usuario?.accessToken = response.headers().get("access-token")
+                        usuario?.client = response.headers().get("client")
 
-                        onSuccess(usuario)
+                        onSuccess(usuario!!)
                     }
 
                 }, {
