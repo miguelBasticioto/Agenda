@@ -6,7 +6,7 @@ import br.com.miguel.agenda.agenda.auth.network.AuthNetwork
 import br.com.miguel.agenda.agenda.auth.database.AuthDatabase
 
 object AuthBusiness {
-    fun criarUsuario(email: String, senha: String, onSuccess:(usuario: Usuario) -> Unit, onFailure:() -> Unit){
+    fun criarUsuario(email: String, senha: String, onSuccess:(usuario: Usuario) -> Unit, onFailure:() -> Unit, semConexao: () -> Unit){
         val user = Usuario()
         user.email = email
         user.password = senha
@@ -15,10 +15,12 @@ object AuthBusiness {
             onSuccess(it)
         }, {
             onFailure()
+        }, {
+            semConexao()
         })
     }
 
-    fun logarUsuario(email: String, senha: String, onSuccess:(usuario: Usuario) -> Unit, onFailure:() -> Unit) {
+    fun logarUsuario(email: String, senha: String, onSuccess:(usuario: Usuario) -> Unit, onFailure:() -> Unit, semConexao:() -> Unit) {
 
         val user = Usuario()
         user.email = email
@@ -34,6 +36,8 @@ object AuthBusiness {
             onSuccess(it)
         }, {
             onFailure()
+        }, {
+            semConexao()
         })
     }
 

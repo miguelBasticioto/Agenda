@@ -50,6 +50,11 @@ class AuthActivity : AppCompatActivity() {
                criarButton.isEnabled = true
                entrarButton.isEnabled = true
                Snackbar.make(view, getString(R.string.usuarioCriadoFracasso), Snackbar.LENGTH_SHORT).show()
+           }, {
+               criarProgress.visibility = View.INVISIBLE
+               criarButton.isEnabled = true
+               entrarButton.isEnabled = true
+               Snackbar.make(view, getString(R.string.semConexao), Snackbar.LENGTH_SHORT).show()
            })
        }
     }
@@ -73,6 +78,11 @@ class AuthActivity : AppCompatActivity() {
             }, {
                 entrarProgress.visibility = View.INVISIBLE
                 Snackbar.make(view, getString(R.string.logadoFracasso), Snackbar.LENGTH_SHORT).show()
+                entrarButton.isEnabled = true
+                criarButton.isEnabled = true
+            } ,{
+                entrarProgress.visibility = View.INVISIBLE
+                Snackbar.make(view, getString(R.string.semConexao), Snackbar.LENGTH_SHORT).show()
                 entrarButton.isEnabled = true
                 criarButton.isEnabled = true
             })

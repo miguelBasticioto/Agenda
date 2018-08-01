@@ -21,7 +21,7 @@ object AuthNetwork {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create()).build()
     }
 
-    fun criarUsuario(user: Usuario, onSuccess: (usuario: Usuario) -> Unit, onFailure: () -> Unit) {
+    fun criarUsuario(user: Usuario, onSuccess: (usuario: Usuario) -> Unit, onFailure: () -> Unit, semConexao: () -> Unit) {
         loginAPI.criarUsuario(user)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -35,13 +35,18 @@ object AuthNetwork {
 
                 }, {
 
-                    onFailure()
+                    Log.d("tag", it.message.toString())
+                    if (it.message.toString().contains("422")) {
+                        onFailure()
+                    } else {
+                        semConexao()
+                    }
 
                 })
     }
 
-    fun logarUsuario(user: Usuario, onSuccess: (usuario: Usuario) -> Unit, onFailure: () -> Unit) {
-
+    fun logarUsuario(user: Usuario, onSuccess: (usuario: Usuario) -> Unit, onFailure: () -> Unit, semConexao:() -> Unit) {
+        var semConexao = true
         loginAPI.logarUsuario(user)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -49,7 +54,8 @@ object AuthNetwork {
 
                     response.headers().get("uid")
 
-                    if(response.code() !== 200) {
+                    if(response.code() != 200) {
+                        semConexao = false
                         onFailure()
                     }
 
@@ -62,7 +68,7 @@ object AuthNetwork {
                     }
 
                 }, {
-                    onFailure()
+                    if(semConexao) semConexao()
                 })
 
     }
