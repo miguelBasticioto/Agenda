@@ -46,6 +46,8 @@ class ContatoInfoActivity : AppCompatActivity() {
     private fun setupCriarContatoButton(usuarioId: Int, contatoId: Int){
         if(contatoId == -1) {
             criarContatoButton.setOnClickListener {
+                criarContatoButton.isEnabled = false
+                criarContatoProgressBar.visibility = View.VISIBLE
                 var contato = Contato()
                 contato.name = nomeContatoEditText.text.toString()
                 contato.email = emailContatoEditText.text.toString()
@@ -66,6 +68,8 @@ class ContatoInfoActivity : AppCompatActivity() {
             //Editar contato
             criarContatoButton.setOnClickListener{
                 AuthBusiness.buscarUsuario(usuarioId) {
+                    criarContatoButton.isEnabled = false
+                    criarContatoProgressBar.visibility = View.VISIBLE
                     val uid = it.uid
                     val accessToken = it.accessToken
                     val cliente = it.client
@@ -97,6 +101,8 @@ class ContatoInfoActivity : AppCompatActivity() {
     private fun setupDeletarContatoButton(usuarioId: Int, contatoId: Int){
         deletarContatoButton.setOnClickListener {
             AuthBusiness.buscarUsuario(usuarioId, {
+                deletarContatoButton.isEnabled = false
+                deletarContatoProgressBar.visibility = View.VISIBLE
                 val uid = it.uid
                 val accessToken = it.accessToken
                 val cliente = it.client

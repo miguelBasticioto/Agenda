@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import br.com.miguel.agenda.R
 import br.com.miguel.agenda.agenda.auth.business.AuthBusiness
 import br.com.miguel.agenda.agenda.auth.view.activity.AuthActivity
@@ -42,6 +43,7 @@ class ContatosActivity : AppCompatActivity() {
 
     private fun buscarContatos(id: Int){
         ContatosBusiness.buscarUsuario(id){
+            recyclerViewProgress.visibility = View.INVISIBLE
             setupRecyclerView(it, id)
         }
     }

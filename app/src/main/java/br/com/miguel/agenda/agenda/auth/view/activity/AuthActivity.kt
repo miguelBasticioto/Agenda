@@ -40,11 +40,17 @@ class AuthActivity : AppCompatActivity() {
     private fun setupCriarButton(){
        criarButton.setOnClickListener{ view ->
            criarProgress.visibility = View.VISIBLE
+           criarButton.isEnabled = false
+           entrarButton.isEnabled = false
            AuthBusiness.criarUsuario(emailEditText.text.toString(), passwordEditText.text.toString(), {
                criarProgress.visibility = View.INVISIBLE
+               criarButton.isEnabled = true
+               entrarButton.isEnabled = true
                Snackbar.make(view, "Usuário criado com sucesso", Snackbar.LENGTH_SHORT).show()
            }, {
                criarProgress.visibility = View.INVISIBLE
+               criarButton.isEnabled = true
+               entrarButton.isEnabled = true
                Snackbar.make(view, "Usuário já cadastrado", Snackbar.LENGTH_SHORT).show()
            })
        }
@@ -53,6 +59,8 @@ class AuthActivity : AppCompatActivity() {
     private fun setupEntrarButton(){
         entrarButton.setOnClickListener{ view->
             entrarProgress.visibility = View.VISIBLE
+            entrarButton.isEnabled = false
+            criarButton.isEnabled = false
             AuthBusiness.logarUsuario(emailEditText.text.toString(), passwordEditText.text.toString(), {
 
                 Snackbar.make(view, "Logado com sucesso", Snackbar.LENGTH_SHORT).show()
@@ -67,6 +75,8 @@ class AuthActivity : AppCompatActivity() {
             }, {
                 entrarProgress.visibility = View.INVISIBLE
                 Snackbar.make(view, "Login ou senha inválidos", Snackbar.LENGTH_SHORT).show()
+                entrarButton.isEnabled = true
+                criarButton.isEnabled = true
             })
         }
     }
