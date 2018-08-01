@@ -34,6 +34,7 @@ class ContatosActivity : AppCompatActivity() {
 
         buscarContatos(id)
         setupAdicionarContatFab(id)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -42,10 +43,16 @@ class ContatosActivity : AppCompatActivity() {
     }
 
     private fun buscarContatos(id: Int){
-        ContatosBusiness.buscarUsuario(id){
+        recyclerViewProgress.visibility = View.VISIBLE
+        ContatosBusiness.buscarUsuario(id ,{
             recyclerViewProgress.visibility = View.INVISIBLE
             setupRecyclerView(it, id)
-        }
+        }, {
+            ContatosBusiness.buscarContatosDatabase {
+                setupRecyclerView(it, id)
+            }
+            recyclerViewProgress.visibility = View.INVISIBLE
+        })
     }
 
     private fun setupRecyclerView(contatos: List<Contato>, usuarioId: Int){
@@ -69,12 +76,14 @@ class ContatosActivity : AppCompatActivity() {
             R.id.logout -> {
                 //Configurar botao de logout
                 AuthBusiness.buscarUsuario(id) {
-                    AuthBusiness.logout(it.uid!!, it.accessToken!!, it.client!!) {
+                    AuthBusiness.logout(it.uid!!, it.accessToken!!, it.client!! ,{
                         Log.d("Logout", "Deslogado")
                         //Voltar para tela de login
                         val intent = Intent(this, AuthActivity::class.java)
                         startActivity(intent)
-                    }
+                    }, {
+                        Snackbar.make(toolbar, "Sem conexão", Snackbar.LENGTH_SHORT).show()
+                    })
                 }
             }
         }

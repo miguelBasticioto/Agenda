@@ -67,13 +67,15 @@ object AuthNetwork {
 
     }
 
-    fun logout(uid: String, accessToken: String, client: String, onSuccess: () -> Unit){
+    fun logout(uid: String, accessToken: String, client: String, onSuccess: () -> Unit, onFailure: () -> Unit){
         loginAPI.logout(uid, accessToken, client)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ resposta ->
                     Log.d("Logout", resposta.message())
                     onSuccess()
+                } ,{
+                    onFailure()
                 })
     }
 }

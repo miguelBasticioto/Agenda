@@ -2,6 +2,8 @@ package br.com.miguel.agenda.agenda.contato.view.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.renderscript.Script
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
@@ -54,14 +56,18 @@ class ContatoInfoActivity : AppCompatActivity() {
                 contato.phone = telefoneContatoEditText.text.toString()
                 contato.picture = imagemUrlContatoEditText.text.toString()
 
-                ContatosBusiness.criarContato(usuarioId, contato) {
+                ContatosBusiness.criarContato(usuarioId, contato ,{
                     val extraBundle = Bundle()
                     extraBundle.putInt("id", usuarioId)
 
                     val intent = Intent(this, ContatosActivity::class.java)
                     intent.putExtras(extraBundle)
                     startActivity(intent)
-                }
+                } ,{
+                    criarContatoButton.isEnabled = true
+                    criarContatoProgressBar.visibility = View.INVISIBLE
+                    Snackbar.make(criarContatoButton, "Sem conexão", Snackbar.LENGTH_SHORT).show()
+                })
 
             }
         } else {
@@ -82,7 +88,7 @@ class ContatoInfoActivity : AppCompatActivity() {
                     contato.picture = imagemUrlContatoEditText.text.toString()
                     contato.birth = 0
 
-                    ContatosBusiness.editarContato(uid!!,cliente!!,accessToken!!,contato,contatoId.toString()) {
+                    ContatosBusiness.editarContato(uid!!,cliente!!,accessToken!!,contato,contatoId.toString(), {
                         //chamar proxima tela
                         val extraBundle = Bundle()
                         extraBundle.putInt("id", usuarioId)
@@ -91,7 +97,11 @@ class ContatoInfoActivity : AppCompatActivity() {
                         intent.putExtras(extraBundle)
                         startActivity(intent)
 
-                    }
+                    }, {
+                        criarContatoButton.isEnabled = true
+                        criarContatoProgressBar.visibility = View.INVISIBLE
+                        Snackbar.make(criarContatoButton, "Sem conexão", Snackbar.LENGTH_SHORT).show()
+                    })
                 }
             }
 
@@ -107,14 +117,18 @@ class ContatoInfoActivity : AppCompatActivity() {
                 val accessToken = it.accessToken
                 val cliente = it.client
 
-                ContatosBusiness.deletarContato(uid!!, cliente!!, accessToken!!, contatoId.toString()) {
+                ContatosBusiness.deletarContato(uid!!, cliente!!, accessToken!!, contatoId.toString(), {
                     val extraBundle = Bundle()
                     extraBundle.putInt("id", usuarioId)
 
                     val intent = Intent(this, ContatosActivity::class.java)
                     intent.putExtras(extraBundle)
                     startActivity(intent)
-                }
+                }, {
+                    deletarContatoButton.isEnabled = true
+                    deletarContatoProgressBar.visibility = View.INVISIBLE
+                    Snackbar.make(deletarContatoButton, "Sem conexão", Snackbar.LENGTH_SHORT).show()
+                })
             })
         }
     }

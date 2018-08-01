@@ -32,4 +32,11 @@ object ContatosDatabase {
             realm.commitTransaction()
         }
     }
+
+    fun buscarContatos(onSuccess: (List<Contato>) -> Unit){
+        Realm.getDefaultInstance().use { realm ->
+            val listaContatos = realm.where(Contato::class.java).findAll()
+            onSuccess(listaContatos)
+        }
+    }
 }
