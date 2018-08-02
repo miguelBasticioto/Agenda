@@ -21,7 +21,7 @@ object ContatosNetwork {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create()).build()
     }
 
-    fun buscarContatos(uid: String, accessToken: String, client: String, onSuccess:(List<Contato>) -> Unit, onFailure:() -> Unit){
+    fun buscarContatos(uid: String, accessToken: String, client: String, onSuccess: (List<Contato>) -> Unit, onFailure: () -> Unit) {
         contatosApi.buscarContatos(uid, accessToken, client)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -29,23 +29,23 @@ object ContatosNetwork {
                     contatos.let {
                         onSuccess(it)
                     }
-                } ,{
+                }, {
                     onFailure()
                 })
     }
 
-    fun criarContato(user: Usuario, contato:Contato, onSuccess:(contato: Contato) -> Unit, onFailure:() -> Unit){
+    fun criarContato(user: Usuario, contato: Contato, onSuccess: (contato: Contato) -> Unit, onFailure: () -> Unit) {
         contatosApi.criarContato(user.uid!!, user.accessToken!!, user.client!!, "application/json", contato)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     onSuccess(it)
-                },{
+                }, {
                     onFailure()
                 })
     }
 
-    fun editarContato(uid: String, accessToken: String, client: String, contato: Contato, id: String ,onSuccess:() -> Unit, onFailure: () -> Unit) {
+    fun editarContato(uid: String, accessToken: String, client: String, contato: Contato, id: String, onSuccess: () -> Unit, onFailure: () -> Unit) {
         contatosApi.editarContato(uid, accessToken, client, "application/json", contato, id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -54,12 +54,12 @@ object ContatosNetwork {
                         Log.d("tag", "Editado com sucesso")
                         onSuccess()
                     }
-                } ,{
+                }, {
                     onFailure()
                 })
     }
 
-    fun deletarContato(uid: String, accessToken: String, client: String, id: String ,onSuccess: () -> Unit, onFailure: () -> Unit){
+    fun deletarContato(uid: String, accessToken: String, client: String, id: String, onSuccess: () -> Unit, onFailure: () -> Unit) {
         contatosApi.deletarContato(uid, accessToken, client, "application/json", id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -70,7 +70,7 @@ object ContatosNetwork {
                         onSuccess()
                     }
 
-                } ,{
+                }, {
                     onFailure()
                 })
     }

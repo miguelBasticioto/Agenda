@@ -27,7 +27,7 @@ class ContatoInfoActivity : AppCompatActivity() {
 
         val contatoId = intent.getIntExtra("contatoId", -1)
 
-        if(contatoId != -1) {
+        if (contatoId != -1) {
             deletarContatoButton.visibility = View.VISIBLE
 
             criarContatoButton.text = "Salvar"
@@ -45,8 +45,8 @@ class ContatoInfoActivity : AppCompatActivity() {
         setupDeletarContatoButton(id, contatoId)
     }
 
-    private fun setupCriarContatoButton(usuarioId: Int, contatoId: Int){
-        if(contatoId == -1) {
+    private fun setupCriarContatoButton(usuarioId: Int, contatoId: Int) {
+        if (contatoId == -1) {
             criarContatoButton.setOnClickListener {
                 if (!nomeContatoEditText.text.isEmpty() && !emailContatoEditText.text.isEmpty() &&
                         !telefoneContatoEditText.text.isEmpty() && !imagemUrlContatoEditText.text.isEmpty()) {
@@ -119,7 +119,7 @@ class ContatoInfoActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupDeletarContatoButton(usuarioId: Int, contatoId: Int){
+    private fun setupDeletarContatoButton(usuarioId: Int, contatoId: Int) {
         deletarContatoButton.setOnClickListener {
             AuthBusiness.buscarUsuario(usuarioId) {
                 deletarContatoButton.isEnabled = false

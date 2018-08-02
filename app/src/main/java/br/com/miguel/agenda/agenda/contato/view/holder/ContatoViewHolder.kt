@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.viewholder_contato.view.*
 /**
  * Created by Miguel Basticioto on 19/07/2018.
  */
-class ContatoViewHolder(val view: View): RecyclerView.ViewHolder(view) {
+class ContatoViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
     private var contatoId: Int = -1
 

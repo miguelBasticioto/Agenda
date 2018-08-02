@@ -10,8 +10,8 @@ import br.com.miguel.agenda.agenda.contato.network.ContatosNetwork
  * Created by Miguel Basticioto on 19/07/2018.
  */
 object ContatosBusiness {
-    fun buscarUsuario(id: Int, onSuccess:(contatos: List<Contato>) -> Unit, onFailure: () -> Unit){
-        AuthDatabase.buscarUsuario(id){
+    fun buscarUsuario(id: Int, onSuccess: (contatos: List<Contato>) -> Unit, onFailure: () -> Unit) {
+        AuthDatabase.buscarUsuario(id) {
             Log.d("tag", it.client.toString())
             Log.d("tag", it.uid.toString())
             Log.d("tag", it.accessToken.toString())
@@ -28,11 +28,11 @@ object ContatosBusiness {
         }
     }
 
-    fun criarContato(idUsuario: Int, contato: Contato, onSuccess:() -> Unit, onFailure:() -> Unit){
+    fun criarContato(idUsuario: Int, contato: Contato, onSuccess: () -> Unit, onFailure: () -> Unit) {
         AuthDatabase.buscarUsuario(idUsuario) {
             ContatosNetwork.criarContato(it, contato, {
                 Log.d("erro", it.id.toString())
-                ContatosDatabase.criarContato(it){
+                ContatosDatabase.criarContato(it) {
                     onSuccess()
                 }
             }, {
@@ -53,14 +53,14 @@ object ContatosBusiness {
         }
     }
 
-    fun editarContato(uid: String, cliente: String, accessToken : String, contato: Contato, id: String, onSuccess:() -> Unit, onFailure: () -> Unit){
+    fun editarContato(uid: String, cliente: String, accessToken: String, contato: Contato, id: String, onSuccess: () -> Unit, onFailure: () -> Unit) {
 
         Log.d("info", uid)
         Log.d("info", cliente)
         Log.d("info", accessToken)
         Log.d("info", id)
 
-        ContatosNetwork.editarContato(uid, accessToken, cliente, contato, id ,{
+        ContatosNetwork.editarContato(uid, accessToken, cliente, contato, id, {
             ContatosDatabase.editarContato(contato) {
                 onSuccess()
             }

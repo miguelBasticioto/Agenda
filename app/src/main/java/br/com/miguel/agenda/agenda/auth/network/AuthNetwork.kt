@@ -43,7 +43,7 @@ object AuthNetwork {
                 })
     }
 
-    fun logarUsuario(user: Usuario, onSuccess: (usuario: Usuario) -> Unit, onFailure: () -> Unit, semConexao:() -> Unit) {
+    fun logarUsuario(user: Usuario, onSuccess: (usuario: Usuario) -> Unit, onFailure: () -> Unit, semConexao: () -> Unit) {
         var semConexao = true
         loginAPI.logarUsuario(user)
                 .subscribeOn(Schedulers.io())
@@ -52,7 +52,7 @@ object AuthNetwork {
 
                     response.headers().get("uid")
 
-                    if(response.code() != 200) {
+                    if (response.code() != 200) {
                         semConexao = false
                         onFailure()
                     }
@@ -66,19 +66,19 @@ object AuthNetwork {
                     }
 
                 }, {
-                    if(semConexao) semConexao()
+                    if (semConexao) semConexao()
                 })
 
     }
 
-    fun logout(uid: String, accessToken: String, client: String, onSuccess: () -> Unit, onFailure: () -> Unit){
+    fun logout(uid: String, accessToken: String, client: String, onSuccess: () -> Unit, onFailure: () -> Unit) {
         loginAPI.logout(uid, accessToken, client)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ resposta ->
                     Log.d("Logout", resposta.message())
                     onSuccess()
-                } ,{
+                }, {
                     onFailure()
                 })
     }

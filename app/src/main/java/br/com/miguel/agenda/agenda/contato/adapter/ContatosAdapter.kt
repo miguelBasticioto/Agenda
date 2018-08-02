@@ -10,7 +10,7 @@ import br.com.miguel.agenda.agenda.contato.view.holder.ContatoViewHolder
 /**
  * Created by Miguel Basticioto on 19/07/2018.
  */
-class ContatosAdapter(contatos: List<Contato>, usuarioId: Int): RecyclerView.Adapter<ContatoViewHolder>() {
+class ContatosAdapter(contatos: List<Contato>, usuarioId: Int) : RecyclerView.Adapter<ContatoViewHolder>() {
     var listaContatos = contatos
     private var userId = usuarioId
 

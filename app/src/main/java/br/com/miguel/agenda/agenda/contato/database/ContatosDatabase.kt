@@ -5,7 +5,7 @@ import br.com.miguel.agenda.agenda.contato.model.Contato
 import io.realm.Realm
 
 object ContatosDatabase {
-    fun salvarContatos (contatos: List<Contato>){
+    fun salvarContatos(contatos: List<Contato>) {
         Realm.getDefaultInstance().use { realm ->
             realm.beginTransaction()
             realm.copyToRealmOrUpdate(contatos)
@@ -14,9 +14,9 @@ object ContatosDatabase {
         }
     }
 
-    fun buscarContato(contatoId: Int, onSuccess:(contato: Contato) -> Unit){
+    fun buscarContato(contatoId: Int, onSuccess: (contato: Contato) -> Unit) {
         Realm.getDefaultInstance().use { realm ->
-            val contato = realm.where(Contato::class.java).equalTo("id",contatoId).findFirst()
+            val contato = realm.where(Contato::class.java).equalTo("id", contatoId).findFirst()
             onSuccess(contato!!)
         }
 
@@ -31,7 +31,7 @@ object ContatosDatabase {
         }
     }
 
-    fun deletarContato(contatoId: Int, onSuccess:() -> Unit){
+    fun deletarContato(contatoId: Int, onSuccess: () -> Unit) {
         Realm.getDefaultInstance().use { realm ->
             realm.beginTransaction()
             val contato = realm.where(Contato::class.java).equalTo("id", contatoId).findFirst()
@@ -41,14 +41,14 @@ object ContatosDatabase {
         }
     }
 
-    fun buscarContatos(onSuccess: (List<Contato>) -> Unit){
+    fun buscarContatos(onSuccess: (List<Contato>) -> Unit) {
         Realm.getDefaultInstance().use { realm ->
             val listaContatos = realm.where(Contato::class.java).findAll()
             onSuccess(listaContatos)
         }
     }
 
-    fun editarContato(contato:Contato, onSuccess: () -> Unit){
+    fun editarContato(contato: Contato, onSuccess: () -> Unit) {
         Realm.getDefaultInstance().use { realm ->
             realm.beginTransaction()
             realm.copyToRealmOrUpdate(contato)

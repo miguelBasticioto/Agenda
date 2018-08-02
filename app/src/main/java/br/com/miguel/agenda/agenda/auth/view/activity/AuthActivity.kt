@@ -21,7 +21,7 @@ class AuthActivity : AppCompatActivity() {
 
         val usuario = AuthBusiness.checarUsuario()
 
-        if(usuario != null){
+        if (usuario != null) {
             //proxima tela
             val extraBundle = Bundle()
             extraBundle.putInt("id", usuario.id)
@@ -35,37 +35,46 @@ class AuthActivity : AppCompatActivity() {
         setupEntrarButton()
     }
 
-    private fun setupCriarButton(){
-       criarButton.setOnClickListener{ view ->
-           if(!emailEditText.text.isEmpty() && !passwordEditText.text.isEmpty()) {
-               criarProgress.visibility = View.VISIBLE
-               criarButton.isEnabled = false
-               entrarButton.isEnabled = false
-               AuthBusiness.criarUsuario(emailEditText.text.toString(), passwordEditText.text.toString(), {
-                   criarProgress.visibility = View.INVISIBLE
-                   criarButton.isEnabled = true
-                   entrarButton.isEnabled = true
-                   Snackbar.make(view, getString(R.string.usuarioCriadoSucesso), Snackbar.LENGTH_SHORT).show()
-               }, {
-                   criarProgress.visibility = View.INVISIBLE
-                   criarButton.isEnabled = true
-                   entrarButton.isEnabled = true
-                   Snackbar.make(view, getString(R.string.usuarioCriadoFracasso), Snackbar.LENGTH_SHORT).show()
-               }, {
-                   criarProgress.visibility = View.INVISIBLE
-                   criarButton.isEnabled = true
-                   entrarButton.isEnabled = true
-                   Snackbar.make(view, getString(R.string.semConexao), Snackbar.LENGTH_SHORT).show()
-               })
-           } else {
-               Snackbar.make(view, getString(R.string.camposObrigatorios), Snackbar.LENGTH_SHORT).show()
-           }
-       }
+    private fun setupCriarButton() {
+        criarButton.setOnClickListener { view ->
+            if (!emailEditText.text.isEmpty() && !passwordEditText.text.isEmpty()) {
+                criarProgress.visibility = View.VISIBLE
+                criarButton.isEnabled = false
+                entrarButton.isEnabled = false
+
+                AuthBusiness.criarUsuario(emailEditText.text.toString(), passwordEditText.text.toString(), {
+
+                    criarProgress.visibility = View.INVISIBLE
+                    criarButton.isEnabled = true
+                    entrarButton.isEnabled = true
+                    Snackbar.make(view, getString(R.string.usuarioCriadoSucesso), Snackbar.LENGTH_SHORT).show()
+
+                }, {
+
+                    criarProgress.visibility = View.INVISIBLE
+                    criarButton.isEnabled = true
+                    entrarButton.isEnabled = true
+                    Snackbar.make(view, getString(R.string.usuarioCriadoFracasso), Snackbar.LENGTH_SHORT).show()
+
+                }, {
+
+                    criarProgress.visibility = View.INVISIBLE
+                    criarButton.isEnabled = true
+                    entrarButton.isEnabled = true
+                    Snackbar.make(view, getString(R.string.semConexao), Snackbar.LENGTH_SHORT).show()
+
+                })
+            } else {
+
+                Snackbar.make(view, getString(R.string.camposObrigatorios), Snackbar.LENGTH_SHORT).show()
+
+            }
+        }
     }
 
-    private fun setupEntrarButton(){
-        entrarButton.setOnClickListener{ view->
-            if(!emailEditText.text.isEmpty() && !passwordEditText.text.isEmpty()) {
+    private fun setupEntrarButton() {
+        entrarButton.setOnClickListener { view ->
+            if (!emailEditText.text.isEmpty() && !passwordEditText.text.isEmpty()) {
                 entrarProgress.visibility = View.VISIBLE
                 entrarButton.isEnabled = false
                 criarButton.isEnabled = false

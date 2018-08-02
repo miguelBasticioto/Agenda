@@ -38,18 +38,12 @@ class ContatosActivity : AppCompatActivity() {
 
     }
 
-    private fun setupSwipeLayout(){
-        recyclerViewSwipeLayout.setOnRefreshListener {
-            refreshRecyclerView()
-        }
-    }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
         return true
     }
 
-    private fun buscarContatos(id: Int){
+    private fun buscarContatos(id: Int) {
 
         recyclerViewProgress.visibility = View.VISIBLE
 
@@ -65,11 +59,11 @@ class ContatosActivity : AppCompatActivity() {
 
     }
 
-    private fun setupRecyclerView(contatos: List<Contato>, usuarioId: Int){
+    private fun setupRecyclerView(contatos: List<Contato>, usuarioId: Int) {
         recyclerViewContatos.adapter = ContatosAdapter(contatos, usuarioId)
     }
 
-    private fun setupAdicionarContatFab (id: Int){
+    private fun setupAdicionarContatFab(id: Int) {
         adicionarContatoFab.setOnClickListener {
             val extraBundle = Bundle()
             extraBundle.putInt("usuarioId", id)
@@ -86,7 +80,7 @@ class ContatosActivity : AppCompatActivity() {
             R.id.logout -> {
                 //Configurar botao de logout
                 AuthBusiness.buscarUsuario(id) {
-                    AuthBusiness.logout(it.uid!!, it.accessToken!!, it.client!! ,{
+                    AuthBusiness.logout(it.uid!!, it.accessToken!!, it.client!!, {
                         Log.d("Logout", "Deslogado")
                         //Voltar para tela de login
                         val intent = Intent(this, AuthActivity::class.java)
@@ -101,19 +95,25 @@ class ContatosActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if(clicado) {
+        if (clicado) {
             finishAffinity()
             return
         }
 
         clicado = true
         Snackbar.make(recyclerViewContatos, getString(R.string.confirmarSair), 2000).show()
-        Handler().postDelayed({ clicado = false}, 2000)
+        Handler().postDelayed({ clicado = false }, 2000)
     }
 
-    private fun refreshRecyclerView(){
+    private fun setupSwipeLayout() {
+        recyclerViewSwipeLayout.setOnRefreshListener {
+            refreshRecyclerView()
+        }
+    }
+
+    private fun refreshRecyclerView() {
         recyclerViewSwipeLayout.isRefreshing = true
-        ContatosBusiness.buscarUsuario(id ,{
+        ContatosBusiness.buscarUsuario(id, {
 
             setupRecyclerView(it.sortedBy { it.name?.toLowerCase() }, id)
             recyclerViewSwipeLayout.isRefreshing = false
