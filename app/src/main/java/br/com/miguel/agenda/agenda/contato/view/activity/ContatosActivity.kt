@@ -31,10 +31,17 @@ class ContatosActivity : AppCompatActivity() {
         id = intent.getIntExtra("id", 0)
 
         Realm.init(this)
+        setupSwipeLayout()
 
         buscarContatos(id)
         setupAdicionarContatFab(id)
 
+    }
+
+    private fun setupSwipeLayout(){
+        recyclerViewSwipeLayout.setOnRefreshListener {
+            refreshRecyclerView()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -54,18 +61,8 @@ class ContatosActivity : AppCompatActivity() {
         }
 
         //Atualizar
-        /*
-        ContatosBusiness.buscarUsuario(id ,{
+        refreshRecyclerView()
 
-            recyclerViewProgress.visibility = View.INVISIBLE
-            setupRecyclerView(it.sortedBy { it.name?.toLowerCase() }, id)
-        }, {
-            ContatosBusiness.buscarContatosDatabase {
-
-                setupRecyclerView(it.sortedBy { it.name?.toLowerCase() }, id)
-            }
-            recyclerViewProgress.visibility = View.INVISIBLE
-        })*/
     }
 
     private fun setupRecyclerView(contatos: List<Contato>, usuarioId: Int){
@@ -108,20 +105,25 @@ class ContatosActivity : AppCompatActivity() {
             finishAffinity()
             return
         }
-        //Teste atualização(Deletar daqui e colocar no pull to refresh do recycler view)
+
+        clicado = true
+        Snackbar.make(recyclerViewContatos, getString(R.string.confirmarSair), 2000).show()
+        Handler().postDelayed({ clicado = false}, 2000)
+    }
+
+    private fun refreshRecyclerView(){
+        recyclerViewSwipeLayout.isRefreshing = true
         ContatosBusiness.buscarUsuario(id ,{
-            recyclerViewProgress.visibility = View.INVISIBLE
+
             setupRecyclerView(it.sortedBy { it.name?.toLowerCase() }, id)
+            recyclerViewSwipeLayout.isRefreshing = false
         }, {
+            recyclerViewSwipeLayout.isRefreshing = false
             Snackbar.make(recyclerViewContatos, R.string.semConexao, Snackbar.LENGTH_SHORT).show()
             ContatosBusiness.buscarContatosDatabase {
                 setupRecyclerView(it.sortedBy { it.name?.toLowerCase() }, id)
             }
-            recyclerViewProgress.visibility = View.INVISIBLE
+            recyclerViewSwipeLayout.isRefreshing = false
         })
-
-        clicado = true
-        //Snackbar.make(recyclerViewContatos, getString(R.string.confirmarSair), 2000).show()
-        Handler().postDelayed({ clicado = false}, 2000)
     }
 }
