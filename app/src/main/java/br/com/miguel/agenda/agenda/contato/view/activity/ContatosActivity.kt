@@ -112,9 +112,9 @@ class ContatosActivity : AppCompatActivity() {
     }
 
     private fun refreshRecyclerView() {
+
         recyclerViewSwipeLayout.isRefreshing = true
         ContatosBusiness.buscarUsuario(id, {
-
             setupRecyclerView(it.sortedBy { it.name?.toLowerCase() }, id)
             recyclerViewSwipeLayout.isRefreshing = false
         }, {

@@ -1,6 +1,7 @@
 package br.com.miguel.agenda.agenda.auth.database
 
 import br.com.miguel.agenda.agenda.auth.model.Usuario
+import br.com.miguel.agenda.agenda.contato.model.Contato
 import io.realm.Realm
 
 object AuthDatabase {
@@ -30,6 +31,15 @@ object AuthDatabase {
         Realm.getDefaultInstance().use { realm ->
             realm.beginTransaction()
             realm.deleteAll()
+            onSuccess()
+            realm.commitTransaction()
+        }
+    }
+
+    fun limparContatos(onSuccess: () -> Unit){
+        Realm.getDefaultInstance().use { realm ->
+            realm.beginTransaction()
+            realm.delete(Contato::class.java)
             onSuccess()
             realm.commitTransaction()
         }

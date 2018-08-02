@@ -19,6 +19,7 @@ object ContatosBusiness {
 
             ContatosNetwork.buscarContatos(it.uid.toString(), it.accessToken.toString(), it.client.toString(), {
                 //Gravar no banco
+                AuthDatabase.limparContatos {  }
                 ContatosDatabase.salvarContatos(it)
 
                 onSuccess(it)

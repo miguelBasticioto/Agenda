@@ -84,4 +84,10 @@ object AuthBusiness {
         return AuthDatabase.checarUsuario()
 
     }
+
+    fun limparContatos () {
+        AuthDatabase.limparContatos {
+
+        }
+    }
 }
