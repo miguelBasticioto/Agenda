@@ -36,15 +36,6 @@ object AuthDatabase {
         }
     }
 
-    fun limparContatos(onSuccess: () -> Unit){
-        Realm.getDefaultInstance().use { realm ->
-            realm.beginTransaction()
-            realm.delete(Contato::class.java)
-            onSuccess()
-            realm.commitTransaction()
-        }
-    }
-
     fun checarUsuario(): Usuario? {
         val realm = Realm.getDefaultInstance()
         realm.beginTransaction()

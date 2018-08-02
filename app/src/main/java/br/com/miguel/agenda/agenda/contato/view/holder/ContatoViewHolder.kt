@@ -38,5 +38,4 @@ class ContatoViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
         }
     }
-
 }

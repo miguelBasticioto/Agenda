@@ -31,9 +31,10 @@ class ContatosActivity : AppCompatActivity() {
         id = intent.getIntExtra("id", 0)
 
         Realm.init(this)
-        setupSwipeLayout()
 
         buscarContatos(id)
+
+        setupSwipeLayout()
         setupAdicionarContatFab(id)
 
     }

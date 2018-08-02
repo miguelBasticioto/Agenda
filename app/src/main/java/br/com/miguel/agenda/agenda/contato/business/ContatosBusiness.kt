@@ -19,7 +19,7 @@ object ContatosBusiness {
 
             ContatosNetwork.buscarContatos(it.uid.toString(), it.accessToken.toString(), it.client.toString(), {
                 //Gravar no banco
-                AuthDatabase.limparContatos {  }
+                ContatosBusiness.limparContatos {  }
                 ContatosDatabase.salvarContatos(it)
 
                 onSuccess(it)
@@ -84,5 +84,11 @@ object ContatosBusiness {
         }, {
             onFailure()
         })
+    }
+
+    fun limparContatos(onSuccess: () -> Unit){
+        ContatosDatabase.limparContatos {
+            onSuccess()
+        }
     }
 }
