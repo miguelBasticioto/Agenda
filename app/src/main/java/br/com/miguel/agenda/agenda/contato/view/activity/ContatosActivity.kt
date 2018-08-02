@@ -50,7 +50,7 @@ class ContatosActivity : AppCompatActivity() {
         ContatosBusiness.buscarContatosDatabase {
 
             recyclerViewProgress.visibility = View.INVISIBLE
-            setupRecyclerView(it.sortedBy { it.name }, id)
+            setupRecyclerView(it.sortedBy { it.name?.toLowerCase() }, id)
         }
 
         //Atualizar
@@ -58,11 +58,11 @@ class ContatosActivity : AppCompatActivity() {
         ContatosBusiness.buscarUsuario(id ,{
 
             recyclerViewProgress.visibility = View.INVISIBLE
-            setupRecyclerView(it.sortedBy { it.name }, id)
+            setupRecyclerView(it.sortedBy { it.name?.toLowerCase() }, id)
         }, {
             ContatosBusiness.buscarContatosDatabase {
 
-                setupRecyclerView(it.sortedBy { it.name }, id)
+                setupRecyclerView(it.sortedBy { it.name?.toLowerCase() }, id)
             }
             recyclerViewProgress.visibility = View.INVISIBLE
         })*/
@@ -108,16 +108,14 @@ class ContatosActivity : AppCompatActivity() {
             finishAffinity()
             return
         }
-        //Teste atualização(Deletar)
+        //Teste atualização(Deletar daqui e colocar no pull to refresh do recycler view)
         ContatosBusiness.buscarUsuario(id ,{
-            it.sortedBy { it.name }
             recyclerViewProgress.visibility = View.INVISIBLE
-            setupRecyclerView(it, id)
+            setupRecyclerView(it.sortedBy { it.name?.toLowerCase() }, id)
         }, {
             Snackbar.make(recyclerViewContatos, R.string.semConexao, Snackbar.LENGTH_SHORT).show()
             ContatosBusiness.buscarContatosDatabase {
-                it.sortedBy { it.name }
-                setupRecyclerView(it, id)
+                setupRecyclerView(it.sortedBy { it.name?.toLowerCase() }, id)
             }
             recyclerViewProgress.visibility = View.INVISIBLE
         })
