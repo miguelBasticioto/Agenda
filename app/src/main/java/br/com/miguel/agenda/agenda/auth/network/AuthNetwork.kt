@@ -41,7 +41,6 @@ object AuthNetwork {
                     } else {
                         semConexao()
                     }
-
                 })
     }
 

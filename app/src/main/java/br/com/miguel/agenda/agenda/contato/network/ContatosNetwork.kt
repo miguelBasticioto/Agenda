@@ -34,14 +34,12 @@ object ContatosNetwork {
                 })
     }
 
-    fun criarContato(user: Usuario, contato:Contato, onSuccess:() -> Unit, onFailure:() -> Unit){
+    fun criarContato(user: Usuario, contato:Contato, onSuccess:(contato: Contato) -> Unit, onFailure:() -> Unit){
         contatosApi.criarContato(user.uid!!, user.accessToken!!, user.client!!, "application/json", contato)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    it.let {
-                        onSuccess()
-                    }
+                    onSuccess(it)
                 },{
                     onFailure()
                 })

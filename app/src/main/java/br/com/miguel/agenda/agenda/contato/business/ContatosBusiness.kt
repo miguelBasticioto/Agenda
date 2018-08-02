@@ -31,7 +31,10 @@ object ContatosBusiness {
     fun criarContato(idUsuario: Int, contato: Contato, onSuccess:() -> Unit, onFailure:() -> Unit){
         AuthDatabase.buscarUsuario(idUsuario) {
             ContatosNetwork.criarContato(it, contato, {
-                onSuccess()
+                Log.d("erro", it.id.toString())
+                ContatosDatabase.criarContato(it){
+                    onSuccess()
+                }
             }, {
                 onFailure()
             })
@@ -58,7 +61,9 @@ object ContatosBusiness {
         Log.d("info", id)
 
         ContatosNetwork.editarContato(uid, accessToken, cliente, contato, id ,{
-            onSuccess()
+            ContatosDatabase.editarContato(contato) {
+                onSuccess()
+            }
         }, {
             onFailure()
         })

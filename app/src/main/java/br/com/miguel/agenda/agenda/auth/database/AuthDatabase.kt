@@ -19,7 +19,6 @@ object AuthDatabase {
         Realm.getDefaultInstance().use { realm ->
             val usuario = realm.where(Usuario::class.java).equalTo("id", id).findFirst()
             onSuccess(usuario!!)
-
         }
     }
 

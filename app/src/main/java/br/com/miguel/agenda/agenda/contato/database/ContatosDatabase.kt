@@ -23,6 +23,15 @@ object ContatosDatabase {
 
     }
 
+    fun criarContato(contato: Contato, onSuccess: () -> Unit) {
+        Realm.getDefaultInstance().use { realm ->
+            realm.beginTransaction()
+            realm.copyToRealmOrUpdate(contato)
+            onSuccess()
+            realm.commitTransaction()
+        }
+    }
+
     fun deletarContato(contatoId: Int, onSuccess:() -> Unit){
         Realm.getDefaultInstance().use { realm ->
             realm.beginTransaction()
@@ -37,6 +46,15 @@ object ContatosDatabase {
         Realm.getDefaultInstance().use { realm ->
             val listaContatos = realm.where(Contato::class.java).findAll()
             onSuccess(listaContatos)
+        }
+    }
+
+    fun editarContato(contato:Contato, onSuccess: () -> Unit){
+        Realm.getDefaultInstance().use { realm ->
+            realm.beginTransaction()
+            realm.copyToRealmOrUpdate(contato)
+            onSuccess()
+            realm.commitTransaction()
         }
     }
 }

@@ -43,16 +43,29 @@ class ContatosActivity : AppCompatActivity() {
     }
 
     private fun buscarContatos(id: Int){
+
         recyclerViewProgress.visibility = View.VISIBLE
-        ContatosBusiness.buscarUsuario(id ,{
+
+        //buscar do banco
+        ContatosBusiness.buscarContatosDatabase {
+
             recyclerViewProgress.visibility = View.INVISIBLE
-            setupRecyclerView(it, id)
+            setupRecyclerView(it.sortedBy { it.name }, id)
+        }
+
+        //Atualizar
+        /*
+        ContatosBusiness.buscarUsuario(id ,{
+
+            recyclerViewProgress.visibility = View.INVISIBLE
+            setupRecyclerView(it.sortedBy { it.name }, id)
         }, {
             ContatosBusiness.buscarContatosDatabase {
-                setupRecyclerView(it, id)
+
+                setupRecyclerView(it.sortedBy { it.name }, id)
             }
             recyclerViewProgress.visibility = View.INVISIBLE
-        })
+        })*/
     }
 
     private fun setupRecyclerView(contatos: List<Contato>, usuarioId: Int){
@@ -95,9 +108,22 @@ class ContatosActivity : AppCompatActivity() {
             finishAffinity()
             return
         }
+        //Teste atualização(Deletar)
+        ContatosBusiness.buscarUsuario(id ,{
+            it.sortedBy { it.name }
+            recyclerViewProgress.visibility = View.INVISIBLE
+            setupRecyclerView(it, id)
+        }, {
+            Snackbar.make(recyclerViewContatos, R.string.semConexao, Snackbar.LENGTH_SHORT).show()
+            ContatosBusiness.buscarContatosDatabase {
+                it.sortedBy { it.name }
+                setupRecyclerView(it, id)
+            }
+            recyclerViewProgress.visibility = View.INVISIBLE
+        })
 
         clicado = true
-        Snackbar.make(recyclerViewContatos, getString(R.string.confirmarSair), 2000).show()
+        //Snackbar.make(recyclerViewContatos, getString(R.string.confirmarSair), 2000).show()
         Handler().postDelayed({ clicado = false}, 2000)
     }
 }
