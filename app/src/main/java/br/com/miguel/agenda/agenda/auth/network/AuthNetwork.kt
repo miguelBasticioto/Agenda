@@ -1,8 +1,7 @@
 package br.com.miguel.agenda.agenda.auth.network
 
 import android.util.Log
-import br.com.miguel.agenda.agenda.auth.module.Usuario
-import io.reactivex.Scheduler
+import br.com.miguel.agenda.agenda.auth.model.Usuario
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit

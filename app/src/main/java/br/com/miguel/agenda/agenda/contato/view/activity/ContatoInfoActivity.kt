@@ -8,9 +8,11 @@ import android.view.View
 import br.com.miguel.agenda.R
 import br.com.miguel.agenda.agenda.auth.business.AuthBusiness
 import br.com.miguel.agenda.agenda.contato.business.ContatosBusiness
-import br.com.miguel.agenda.agenda.contato.module.Contato
+import br.com.miguel.agenda.agenda.contato.model.Contato
 import io.realm.Realm
+import kotlinx.android.synthetic.main.activity_contatos.*
 import kotlinx.android.synthetic.main.activity_info_contato.*
+import kotlinx.android.synthetic.main.activity_login.*
 
 class ContatoInfoActivity : AppCompatActivity() {
 
@@ -46,60 +48,71 @@ class ContatoInfoActivity : AppCompatActivity() {
     private fun setupCriarContatoButton(usuarioId: Int, contatoId: Int){
         if(contatoId == -1) {
             criarContatoButton.setOnClickListener {
-                criarContatoButton.isEnabled = false
-                criarContatoProgressBar.visibility = View.VISIBLE
-                var contato = Contato()
-                contato.name = nomeContatoEditText.text.toString()
-                contato.email = emailContatoEditText.text.toString()
-                contato.phone = telefoneContatoEditText.text.toString()
-                contato.picture = imagemUrlContatoEditText.text.toString()
-
-                ContatosBusiness.criarContato(usuarioId, contato ,{
-                    val extraBundle = Bundle()
-                    extraBundle.putInt("id", usuarioId)
-
-                    val intent = Intent(this, ContatosActivity::class.java)
-                    intent.putExtras(extraBundle)
-                    startActivity(intent)
-                } ,{
-                    criarContatoButton.isEnabled = true
-                    criarContatoProgressBar.visibility = View.INVISIBLE
-                    Snackbar.make(criarContatoButton, getString(R.string.semConexao), Snackbar.LENGTH_SHORT).show()
-                })
-
-            }
-        } else {
-            //Editar contato
-            criarContatoButton.setOnClickListener{
-                AuthBusiness.buscarUsuario(usuarioId) {
+                if (!nomeContatoEditText.text.isEmpty() && !emailContatoEditText.text.isEmpty() &&
+                        !telefoneContatoEditText.text.isEmpty() && !imagemUrlContatoEditText.text.isEmpty()) {
                     criarContatoButton.isEnabled = false
                     criarContatoProgressBar.visibility = View.VISIBLE
-                    val uid = it.uid
-                    val accessToken = it.accessToken
-                    val cliente = it.client
-
-                    val contato = Contato()
-                    contato.id = contatoId
+                    var contato = Contato()
                     contato.name = nomeContatoEditText.text.toString()
                     contato.email = emailContatoEditText.text.toString()
                     contato.phone = telefoneContatoEditText.text.toString()
                     contato.picture = imagemUrlContatoEditText.text.toString()
-                    contato.birth = 0
 
-                    ContatosBusiness.editarContato(uid!!,cliente!!,accessToken!!,contato,contatoId.toString(), {
-                        //chamar proxima tela
+                    ContatosBusiness.criarContato(usuarioId, contato, {
                         val extraBundle = Bundle()
                         extraBundle.putInt("id", usuarioId)
 
                         val intent = Intent(this, ContatosActivity::class.java)
                         intent.putExtras(extraBundle)
                         startActivity(intent)
-
                     }, {
                         criarContatoButton.isEnabled = true
                         criarContatoProgressBar.visibility = View.INVISIBLE
                         Snackbar.make(criarContatoButton, getString(R.string.semConexao), Snackbar.LENGTH_SHORT).show()
                     })
+                } else {
+                    Snackbar.make(criarContatoButton, R.string.camposObrigatorios, Snackbar.LENGTH_SHORT).show()
+                }
+
+            }
+        } else {
+            //Editar contato
+            criarContatoButton.setOnClickListener {
+                if (!nomeContatoEditText.text.isEmpty() && !emailContatoEditText.text.isEmpty() &&
+                        !telefoneContatoEditText.text.isEmpty() && !imagemUrlContatoEditText.text.isEmpty()) {
+
+                    AuthBusiness.buscarUsuario(usuarioId) {
+                        criarContatoButton.isEnabled = false
+                        criarContatoProgressBar.visibility = View.VISIBLE
+                        val uid = it.uid
+                        val accessToken = it.accessToken
+                        val cliente = it.client
+
+                        val contato = Contato()
+                        contato.id = contatoId
+                        contato.name = nomeContatoEditText.text.toString()
+                        contato.email = emailContatoEditText.text.toString()
+                        contato.phone = telefoneContatoEditText.text.toString()
+                        contato.picture = imagemUrlContatoEditText.text.toString()
+                        contato.birth = 0
+
+                        ContatosBusiness.editarContato(uid!!, cliente!!, accessToken!!, contato, contatoId.toString(), {
+                            //chamar proxima tela
+                            val extraBundle = Bundle()
+                            extraBundle.putInt("id", usuarioId)
+
+                            val intent = Intent(this, ContatosActivity::class.java)
+                            intent.putExtras(extraBundle)
+                            startActivity(intent)
+
+                        }, {
+                            criarContatoButton.isEnabled = true
+                            criarContatoProgressBar.visibility = View.INVISIBLE
+                            Snackbar.make(criarContatoButton, getString(R.string.semConexao), Snackbar.LENGTH_SHORT).show()
+                        })
+                    }
+                } else {
+                    Snackbar.make(criarContatoButton, R.string.camposObrigatorios, Snackbar.LENGTH_SHORT).show()
                 }
             }
 

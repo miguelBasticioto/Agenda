@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import br.com.miguel.agenda.agenda.contato.module.Contato
+import br.com.miguel.agenda.agenda.contato.model.Contato
 import br.com.miguel.agenda.agenda.contato.view.activity.ContatoInfoActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.viewholder_contato.view.*

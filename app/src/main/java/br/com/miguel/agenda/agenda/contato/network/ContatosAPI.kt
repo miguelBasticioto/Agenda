@@ -1,6 +1,6 @@
 package br.com.miguel.agenda.agenda.contato.network
 
-import br.com.miguel.agenda.agenda.contato.module.Contato
+import br.com.miguel.agenda.agenda.contato.model.Contato
 import io.reactivex.Observable
 import retrofit2.Response
 import retrofit2.http.*

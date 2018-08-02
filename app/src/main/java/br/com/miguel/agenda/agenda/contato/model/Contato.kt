@@ -1,4 +1,4 @@
-package br.com.miguel.agenda.agenda.contato.module
+package br.com.miguel.agenda.agenda.contato.model
 
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey

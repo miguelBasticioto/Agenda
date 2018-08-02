@@ -6,4 +6,5 @@
     <string name="logadoFracasso">Login ou senha inválidos</string>
     <string name="semConexao">Sem conexão</string>
     <string name="confirmarSair">Clique novamente para sair</string>
+    <string name="camposObrigatorios">Todos os campos devem ser preenchidos</string>
 </resources>

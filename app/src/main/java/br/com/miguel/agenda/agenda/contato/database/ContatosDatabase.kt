@@ -1,9 +1,8 @@
 package br.com.miguel.agenda.agenda.contato.database
 
 import android.util.Log
-import br.com.miguel.agenda.agenda.contato.module.Contato
+import br.com.miguel.agenda.agenda.contato.model.Contato
 import io.realm.Realm
-import io.realm.kotlin.delete
 
 object ContatosDatabase {
     fun salvarContatos (contatos: List<Contato>){

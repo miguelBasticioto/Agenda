@@ -1,6 +1,6 @@
 package br.com.miguel.agenda.agenda.auth.network
 
-import br.com.miguel.agenda.agenda.auth.module.Usuario
+import br.com.miguel.agenda.agenda.auth.model.Usuario
 import io.reactivex.Observable
 import retrofit2.Response
 import retrofit2.http.Body

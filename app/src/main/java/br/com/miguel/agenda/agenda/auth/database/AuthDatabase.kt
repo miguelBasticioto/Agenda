@@ -1,6 +1,6 @@
 package br.com.miguel.agenda.agenda.auth.database
 
-import br.com.miguel.agenda.agenda.auth.module.Usuario
+import br.com.miguel.agenda.agenda.auth.model.Usuario
 import io.realm.Realm
 
 object AuthDatabase {

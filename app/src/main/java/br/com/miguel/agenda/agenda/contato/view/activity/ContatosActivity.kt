@@ -14,7 +14,7 @@ import br.com.miguel.agenda.agenda.auth.business.AuthBusiness
 import br.com.miguel.agenda.agenda.auth.view.activity.AuthActivity
 import br.com.miguel.agenda.agenda.contato.adapter.ContatosAdapter
 import br.com.miguel.agenda.agenda.contato.business.ContatosBusiness
-import br.com.miguel.agenda.agenda.contato.module.Contato
+import br.com.miguel.agenda.agenda.contato.model.Contato
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_contatos.*
 

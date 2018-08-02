@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import br.com.miguel.agenda.R
-import br.com.miguel.agenda.agenda.contato.module.Contato
+import br.com.miguel.agenda.agenda.contato.model.Contato
 import br.com.miguel.agenda.agenda.contato.view.holder.ContatoViewHolder
 
 /**

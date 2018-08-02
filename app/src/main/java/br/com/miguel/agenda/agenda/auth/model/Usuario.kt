@@ -1,4 +1,4 @@
-package br.com.miguel.agenda.agenda.auth.module
+package br.com.miguel.agenda.agenda.auth.model
 
 import com.google.gson.annotations.SerializedName
 import io.realm.RealmObject

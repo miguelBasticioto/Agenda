@@ -3,7 +3,7 @@ package br.com.miguel.agenda.agenda.contato.business
 import android.util.Log
 import br.com.miguel.agenda.agenda.auth.database.AuthDatabase
 import br.com.miguel.agenda.agenda.contato.database.ContatosDatabase
-import br.com.miguel.agenda.agenda.contato.module.Contato
+import br.com.miguel.agenda.agenda.contato.model.Contato
 import br.com.miguel.agenda.agenda.contato.network.ContatosNetwork
 
 /**
