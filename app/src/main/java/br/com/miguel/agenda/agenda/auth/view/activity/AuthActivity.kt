@@ -2,6 +2,7 @@ package br.com.miguel.agenda.agenda.auth.view.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -36,32 +37,26 @@ class AuthActivity : AppCompatActivity() {
     }
 
     private fun setupCriarButton() {
+        val email = emailEditText.text.toString()
+        val password = passwordEditText.text.toString()
+
         criarButton.setOnClickListener { view ->
-            if (!emailEditText.text.isEmpty() && !passwordEditText.text.isEmpty()) {
-                criarProgress.visibility = View.VISIBLE
-                criarButton.isEnabled = false
-                entrarButton.isEnabled = false
+
+            if (AuthBusiness.validarEmail(email) && AuthBusiness.validarSenha(password)) {
+
+                mostrarFeedback()
 
                 AuthBusiness.criarUsuario(emailEditText.text.toString(), passwordEditText.text.toString(), {
 
-                    criarProgress.visibility = View.INVISIBLE
-                    criarButton.isEnabled = true
-                    entrarButton.isEnabled = true
-                    Snackbar.make(view, getString(R.string.usuarioCriadoSucesso), Snackbar.LENGTH_SHORT).show()
+                    esconderFeedback(R.string.usuarioCriadoSucesso)
 
                 }, {
 
-                    criarProgress.visibility = View.INVISIBLE
-                    criarButton.isEnabled = true
-                    entrarButton.isEnabled = true
-                    Snackbar.make(view, getString(R.string.usuarioCriadoFracasso), Snackbar.LENGTH_SHORT).show()
+                    esconderFeedback(R.string.usuarioCriadoFracasso)
 
                 }, {
 
-                    criarProgress.visibility = View.INVISIBLE
-                    criarButton.isEnabled = true
-                    entrarButton.isEnabled = true
-                    Snackbar.make(view, getString(R.string.semConexao), Snackbar.LENGTH_SHORT).show()
+                    esconderFeedback(R.string.semConexao)
 
                 })
             } else {
@@ -73,11 +68,17 @@ class AuthActivity : AppCompatActivity() {
     }
 
     private fun setupEntrarButton() {
+        val email = emailEditText.text.toString()
+        val password = passwordEditText.text.toString()
+
         entrarButton.setOnClickListener { view ->
-            if (!emailEditText.text.isEmpty() && !passwordEditText.text.isEmpty()) {
-                entrarProgress.visibility = View.VISIBLE
-                entrarButton.isEnabled = false
-                criarButton.isEnabled = false
+
+            mostrarFeedback()
+
+            if (AuthBusiness.validarEmail(email) && AuthBusiness.validarSenha(password)) {
+
+                mostrarFeedback()
+
                 AuthBusiness.logarUsuario(emailEditText.text.toString(), passwordEditText.text.toString(), {
 
                     Snackbar.make(view, getString(R.string.logadoSucesso), Snackbar.LENGTH_SHORT).show()
@@ -89,17 +90,12 @@ class AuthActivity : AppCompatActivity() {
                     intent.putExtras(extraBundle)
                     startActivity(intent)
                     finish()
+
                     entrarProgress.visibility = View.INVISIBLE
                 }, {
-                    entrarProgress.visibility = View.INVISIBLE
-                    Snackbar.make(view, getString(R.string.logadoFracasso), Snackbar.LENGTH_SHORT).show()
-                    entrarButton.isEnabled = true
-                    criarButton.isEnabled = true
+                    esconderFeedback(R.string.logadoFracasso)
                 }, {
-                    entrarProgress.visibility = View.INVISIBLE
-                    Snackbar.make(view, getString(R.string.semConexao), Snackbar.LENGTH_SHORT).show()
-                    entrarButton.isEnabled = true
-                    criarButton.isEnabled = true
+                    esconderFeedback(R.string.semConexao)
                 })
             } else {
                 Snackbar.make(view, R.string.camposObrigatorios, Snackbar.LENGTH_SHORT).show()
@@ -109,5 +105,18 @@ class AuthActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         finishAffinity()
+    }
+
+    private fun mostrarFeedback (){
+        entrarProgress.visibility = View.VISIBLE
+        entrarButton.isEnabled = false
+        criarButton.isEnabled = false
+    }
+
+    private fun esconderFeedback (@StringRes mensagem: Int){
+        entrarProgress.visibility = View.INVISIBLE
+        Snackbar.make(emailEditText, mensagem, Snackbar.LENGTH_SHORT).show()
+        entrarButton.isEnabled = true
+        criarButton.isEnabled = true
     }
 }

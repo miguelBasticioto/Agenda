@@ -84,4 +84,9 @@ object AuthBusiness {
         return AuthDatabase.checarUsuario()
 
     }
+
+    fun validarEmail(email: String): Boolean = email.isNotEmpty()
+
+    fun validarSenha(password: String): Boolean = password.isNotEmpty()
+
 }
