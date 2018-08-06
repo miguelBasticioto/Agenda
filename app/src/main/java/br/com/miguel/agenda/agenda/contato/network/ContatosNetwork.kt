@@ -14,9 +14,19 @@ object ContatosNetwork {
         ContatosNetwork.getRetrofit().create(ContatosAPI::class.java)
     }
 
+    const val contacts = "contacts"
+    const val contactsId = "contacts/{id}"
+
+    const val uid = "uid"
+    const val accessToken = "access-token"
+    const val client = "client"
+    const val contentType = "Content-Type"
+
+    const val id = "id"
+
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
-                .baseUrl("https://api-agenda-unifor.herokuapp.com")
+                .baseUrl("https://api-agenda-unifor.herokuapp.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create()).build()
     }

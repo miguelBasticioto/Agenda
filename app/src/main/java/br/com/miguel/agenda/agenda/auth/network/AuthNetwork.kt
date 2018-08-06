@@ -9,13 +9,21 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 object AuthNetwork {
+    const val auth = "auth"
+    const val signIn = "auth/sign_in"
+    const val signOut = "auth/sign_out"
+
+    const val uid = "uid"
+    const val accessToken = "access-token"
+    const val client = "client"
+
     val loginAPI by lazy {
         getRetrofit().create(AuthAPI::class.java)
     }
 
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
-                .baseUrl("https://api-agenda-unifor.herokuapp.com")
+                .baseUrl("https://api-agenda-unifor.herokuapp.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create()).build()
     }
