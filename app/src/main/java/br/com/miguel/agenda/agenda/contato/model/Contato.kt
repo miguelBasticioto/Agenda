@@ -4,6 +4,7 @@ import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 
 open class Contato : RealmObject() {
+
     @PrimaryKey
     var id: Int = 0
 

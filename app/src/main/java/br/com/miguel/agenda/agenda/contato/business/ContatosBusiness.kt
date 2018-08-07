@@ -14,6 +14,7 @@ import br.com.miguel.agenda.agenda.contato.network.ContatosNetwork
 object ContatosBusiness {
 
     fun criarContato(contato: Contato, onSuccess: () -> Unit, onFailure: () -> Unit) {
+
         AuthDatabase.buscarUsuario { usuario ->
 
             ContatosNetwork.criarContato(usuario, contato, { contato ->
@@ -26,6 +27,7 @@ object ContatosBusiness {
                 onFailure()
             })
         }
+
     }
 
     fun buscarContato(contatoId: Int, onSuccess: (contato: Contato) -> Unit) {
@@ -80,6 +82,6 @@ object ContatosBusiness {
             })
         }
 
-
     }
+
 }

@@ -11,6 +11,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 object AuthNetwork {
+
     const val auth = "auth"
     const val signIn = "auth/sign_in"
     const val signOut = "auth/sign_out"
@@ -24,13 +25,16 @@ object AuthNetwork {
     }
 
     private fun getRetrofit(): Retrofit {
+
         return Retrofit.Builder()
                 .baseUrl("https://api-agenda-unifor.herokuapp.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create()).build()
+
     }
 
     fun criarUsuario(user: Usuario, onSuccess: (usuario: Usuario) -> Unit, onFailure: (mensagem: Int) -> Unit) {
+
         loginAPI.criarUsuario(user)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -51,6 +55,7 @@ object AuthNetwork {
                     onFailure(R.string.semConexao)
 
                 })
+
     }
 
     fun logarUsuario(user: Usuario, onSuccess: (usuario: Usuario) -> Unit, onFailure: (mensagem: Int) -> Unit) {
@@ -83,6 +88,7 @@ object AuthNetwork {
     }
 
     fun logout(uid: String, accessToken: String, client: String, onSuccess: () -> Unit, onFailure: () -> Unit) {
+
         loginAPI.logout(uid, accessToken, client)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -92,5 +98,7 @@ object AuthNetwork {
                 }, {
                     onFailure()
                 })
+
     }
+
 }

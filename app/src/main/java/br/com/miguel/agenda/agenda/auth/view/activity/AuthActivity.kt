@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 class AuthActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
@@ -27,20 +28,21 @@ class AuthActivity : AppCompatActivity() {
             val intent = Intent(this, ContatosActivity::class.java)
             startActivity(intent)
 
-            finish()
         }
 
         setupCriarButton()
         setupEntrarButton()
+
     }
 
     private fun setupCriarButton() {
+
         val email = emailEditText.text.toString()
         val password = passwordEditText.text.toString()
 
         criarButton.setOnClickListener { view ->
 
-            if (AuthBusiness.validarEmail(email) && AuthBusiness.validarSenha(password)) {
+            if (email.isNotEmpty() && password.isNotEmpty()) {
 
                 mostrarFeedback()
 
@@ -59,9 +61,11 @@ class AuthActivity : AppCompatActivity() {
 
             }
         }
+
     }
 
     private fun setupEntrarButton() {
+
         val email = emailEditText.text.toString()
         val password = passwordEditText.text.toString()
 
@@ -69,21 +73,18 @@ class AuthActivity : AppCompatActivity() {
 
             mostrarFeedback()
 
-            if (AuthBusiness.validarEmail(email) && AuthBusiness.validarSenha(password)) {
+            if (email.isNotEmpty() && password.isNotEmpty()) {
 
                 mostrarFeedback()
 
                 AuthBusiness.logarUsuario(emailEditText.text.toString(), passwordEditText.text.toString(), {
 
-                    Snackbar.make(view, getString(R.string.logadoSucesso), Snackbar.LENGTH_SHORT).show()
-
-
                     val intent = Intent(this, ContatosActivity::class.java)
                     startActivity(intent)
 
-                    finish()
-
                     entrarProgress.visibility = View.INVISIBLE
+                    esconderFeedback(R.string.logadoSucesso)
+
                 }, { mensagemRes ->
                     esconderFeedback(mensagemRes)
                 })
@@ -91,6 +92,7 @@ class AuthActivity : AppCompatActivity() {
                 Snackbar.make(view, R.string.camposObrigatorios, Snackbar.LENGTH_SHORT).show()
             }
         }
+
     }
 
     override fun onBackPressed() {
@@ -98,15 +100,19 @@ class AuthActivity : AppCompatActivity() {
     }
 
     private fun mostrarFeedback (){
+
         entrarProgress.visibility = View.VISIBLE
         entrarButton.isEnabled = false
         criarButton.isEnabled = false
+
     }
 
     private fun esconderFeedback (@StringRes mensagem: Int){
+
         entrarProgress.visibility = View.INVISIBLE
         Snackbar.make(emailEditText, mensagem, Snackbar.LENGTH_SHORT).show()
         entrarButton.isEnabled = true
         criarButton.isEnabled = true
+
     }
 }

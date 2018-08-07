@@ -5,16 +5,20 @@ import br.com.miguel.agenda.agenda.contato.model.Contato
 import io.realm.Realm
 
 object ContatosDatabase {
+
     fun salvarContatos(contatos: List<Contato>) {
+
         Realm.getDefaultInstance().use { realm ->
             realm.beginTransaction()
             realm.copyToRealmOrUpdate(contatos)
             Log.d("tag", "contatos salvos no banco")
             realm.commitTransaction()
         }
+
     }
 
     fun buscarContato(contatoId: Int, onSuccess: (contato: Contato) -> Unit) {
+
         Realm.getDefaultInstance().use { realm ->
             val contato = realm.where(Contato::class.java).equalTo("id", contatoId).findFirst()
             onSuccess(contato!!)
@@ -23,15 +27,18 @@ object ContatosDatabase {
     }
 
     fun criarContato(contato: Contato, onSuccess: () -> Unit) {
+
         Realm.getDefaultInstance().use { realm ->
             realm.beginTransaction()
             realm.copyToRealmOrUpdate(contato)
             onSuccess()
             realm.commitTransaction()
         }
+
     }
 
     fun deletarContato(contatoId: Int, onSuccess: () -> Unit) {
+
         Realm.getDefaultInstance().use { realm ->
             realm.beginTransaction()
             val contato = realm.where(Contato::class.java).equalTo("id", contatoId).findFirst()
@@ -39,6 +46,7 @@ object ContatosDatabase {
             onSuccess()
             realm.commitTransaction()
         }
+
     }
 
     fun buscarContatos(): List<Contato> {
@@ -46,15 +54,18 @@ object ContatosDatabase {
     }
 
     fun editarContato(contato: Contato, onSuccess: () -> Unit) {
+
         Realm.getDefaultInstance().use { realm ->
             realm.beginTransaction()
             realm.copyToRealmOrUpdate(contato)
             onSuccess()
             realm.commitTransaction()
         }
+
     }
 
     fun limparContatos(onSuccess: () -> Unit){
+
         Realm.getDefaultInstance().use { realm ->
             realm.beginTransaction()
             realm.delete(Contato::class.java)
@@ -62,4 +73,5 @@ object ContatosDatabase {
             realm.commitTransaction()
         }
     }
+
 }

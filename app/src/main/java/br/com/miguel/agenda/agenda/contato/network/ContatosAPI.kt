@@ -6,7 +6,7 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface ContatosAPI {
-    //ainda nao testado
+
     @GET(ContatosNetwork.contacts)
     fun buscarContatos(@Header(ContatosNetwork.uid) uid: String,
                        @Header(ContatosNetwork.accessToken) accessToken: String,
@@ -23,11 +23,15 @@ interface ContatosAPI {
     fun editarContato(@Header(ContatosNetwork.uid) uid: String,
                       @Header(ContatosNetwork.accessToken) accessToken: String,
                       @Header(ContatosNetwork.client) client: String,
-                      @Header(ContatosNetwork.contentType) type: String, @Body contato: Contato, @Path(ContatosNetwork.id) id: String): Observable<Contato>
+                      @Header(ContatosNetwork.contentType) type: String,
+                      @Body contato: Contato,
+                      @Path(ContatosNetwork.id) id: String): Observable<Contato>
 
     @DELETE(ContatosNetwork.contactsId)
     fun deletarContato(@Header(ContatosNetwork.uid) uid: String,
                        @Header(ContatosNetwork.accessToken) accessToken: String,
                        @Header(ContatosNetwork.client) client: String,
-                       @Header(ContatosNetwork.contentType) type: String, @Path(ContatosNetwork.id) id: String): Observable<Response<Void>>
+                       @Header(ContatosNetwork.contentType) type: String,
+                       @Path(ContatosNetwork.id) id: String): Observable<Response<Void>>
+
 }

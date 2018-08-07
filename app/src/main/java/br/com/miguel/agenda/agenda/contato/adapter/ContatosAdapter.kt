@@ -13,21 +13,28 @@ import br.com.miguel.agenda.agenda.contato.view.holder.ContatoViewHolder
  * Created by Miguel Basticioto on 19/07/2018.
  */
 class ContatosAdapter : RecyclerView.Adapter<ContatoViewHolder>() {
+
     private lateinit var contatos: List<Contato>
 
     fun refresh(onSuccess: () -> Unit = {}, onFailure:() -> Unit = {}){
+
         contatos = ContatosBusiness.listarContatosDatabase()
         notifyDataSetChanged()
 
         AuthBusiness.buscarUsuario {  usuario ->
+
             ContatosBusiness.listarContatosNetwork({ contatosNetwork ->
+
                 contatos = contatosNetwork
                 notifyDataSetChanged()
                 onSuccess()
+
             }, {
                 onFailure()
             }, usuario)
+
         }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContatoViewHolder {
@@ -43,4 +50,5 @@ class ContatosAdapter : RecyclerView.Adapter<ContatoViewHolder>() {
     override fun onBindViewHolder(holder: ContatoViewHolder, position: Int) {
         holder.bind(contatos[position])
     }
+
 }

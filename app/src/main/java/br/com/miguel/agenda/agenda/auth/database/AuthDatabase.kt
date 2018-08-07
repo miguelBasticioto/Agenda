@@ -19,40 +19,32 @@ object AuthDatabase {
     }
 
     fun buscarUsuario(onSuccess: (usuario: Usuario) -> Unit) {
+
         Realm.getDefaultInstance().use { realm ->
 
             val usuario = realm.where(Usuario::class.java).findFirst()
             onSuccess(usuario!!)
 
         }
-    }
 
-    fun recuperarUsuario():Usuario {
-        Realm.getDefaultInstance().use { realm ->
-            return realm.where(Usuario::class.java).findFirst()!!
-        }
     }
 
     fun limparBanco(onSuccess: () -> Unit) {
+
         Realm.getDefaultInstance().use { realm ->
             realm.beginTransaction()
             realm.deleteAll()
             onSuccess()
             realm.commitTransaction()
         }
-    }
 
-    fun checarUsuario(): Usuario? {
-        val realm = Realm.getDefaultInstance()
-        realm.beginTransaction()
-        val usuario = realm.where(Usuario::class.java).findFirst()
-        realm.commitTransaction()
-        return usuario
     }
 
     fun contagemUsuario(): Long {
+
         Realm.getDefaultInstance().use { realm ->
             return realm.where(Usuario::class.java).count()
         }
     }
+
 }

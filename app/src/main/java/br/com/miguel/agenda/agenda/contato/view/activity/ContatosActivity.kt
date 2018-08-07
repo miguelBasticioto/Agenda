@@ -24,6 +24,7 @@ class ContatosActivity : AppCompatActivity() {
     private var clicado = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contatos)
         setSupportActionBar(toolbar)
@@ -56,20 +57,22 @@ class ContatosActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
         when (item!!.itemId) {
             R.id.logout -> {
+
                 //Configurar botao de logout
                 AuthBusiness.logout({
                     Log.d("Logout", "Deslogado")
                     //Voltar para tela de login
-                    val intent = Intent(this, AuthActivity::class.java)
-                    startActivity(intent)
+                    finish()
                 }, {
                     Snackbar.make(toolbar, getString(R.string.semConexao), Snackbar.LENGTH_SHORT).show()
                 })
             }
         }
         return super.onOptionsItemSelected(item)
+
     }
 
     override fun onBackPressed() {
@@ -88,6 +91,7 @@ class ContatosActivity : AppCompatActivity() {
         recyclerViewSwipeLayout.setOnRefreshListener {
             refreshRecyclerView()
         }
+
     }
 
     private fun refreshRecyclerView() {

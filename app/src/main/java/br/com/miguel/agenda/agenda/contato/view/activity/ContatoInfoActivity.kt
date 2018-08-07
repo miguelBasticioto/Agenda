@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 class ContatoInfoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_info_contato)
 
@@ -28,6 +29,7 @@ class ContatoInfoActivity : AppCompatActivity() {
             deletarContatoButton.visibility = View.VISIBLE
 
             criarContatoButton.text = "Salvar"
+
             //Buscar contato no banco
             ContatosBusiness.buscarContato(contatoId) { contato ->
                 nomeContatoEditText.setText(contato.name)
@@ -46,17 +48,21 @@ class ContatoInfoActivity : AppCompatActivity() {
         if (contatoId == -1) {
             criarContatoButton.setOnClickListener {
 
-                if (!nomeContatoEditText.text.isEmpty() && !emailContatoEditText.text.isEmpty() &&
-                        !telefoneContatoEditText.text.isEmpty() && !imagemUrlContatoEditText.text.isEmpty()) {
+                val name = nomeContatoEditText.text.toString()
+                val email = emailContatoEditText.text.toString()
+                val phone = telefoneContatoEditText.text.toString()
+                val picture = imagemUrlContatoEditText.text.toString()
+
+                if (name.isNotEmpty() && email.isNotEmpty() && phone.isNotEmpty() && picture.isNotEmpty()) {
 
                     criarContatoButton.isEnabled = false
                     criarContatoProgressBar.visibility = View.VISIBLE
 
                     var contato = Contato()
-                    contato.name = nomeContatoEditText.text.toString()
-                    contato.email = emailContatoEditText.text.toString()
-                    contato.phone = telefoneContatoEditText.text.toString()
-                    contato.picture = imagemUrlContatoEditText.text.toString()
+                    contato.name = name
+                    contato.email = email
+                    contato.phone = phone
+                    contato.picture = picture
 
                     ContatosBusiness.criarContato(contato, {
 
@@ -110,6 +116,7 @@ class ContatoInfoActivity : AppCompatActivity() {
     }
 
     private fun setupDeletarContatoButton(contatoId: Int) {
+
         deletarContatoButton.setOnClickListener {
 
             deletarContatoButton.isEnabled = false
@@ -128,4 +135,5 @@ class ContatoInfoActivity : AppCompatActivity() {
             })
         }
     }
+
 }
