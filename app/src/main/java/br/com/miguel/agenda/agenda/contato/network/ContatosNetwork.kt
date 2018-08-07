@@ -69,7 +69,6 @@ object ContatosNetwork {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({contato ->
                     contato.let {
-                        Log.d("tag", "Editado com sucesso")
                         onSuccess()
                     }
                 }, {
@@ -85,8 +84,6 @@ object ContatosNetwork {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response ->
                     response.let {
-                        Log.d("tag", "Deletado com sucesso")
-                        Log.d("tag", response.message())
                         onSuccess()
                     }
 

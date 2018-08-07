@@ -19,7 +19,6 @@ object ContatosBusiness {
 
             ContatosNetwork.criarContato(usuario, contato, { contato ->
 
-                Log.d("erro", contato.id.toString())
                 ContatosDatabase.criarContato(contato) {
                     onSuccess()
                 }
@@ -74,7 +73,6 @@ object ContatosBusiness {
         AuthBusiness.buscarUsuario { usuario ->
             ContatosNetwork.deletarContato(usuario.uid!!, usuario.accessToken!!, usuario.client!!, id, {
                 ContatosDatabase.deletarContato(id) {
-                    Log.d("tag", "deletando contato de id: ${id}")
                     onSuccess()
                 }
             }, {

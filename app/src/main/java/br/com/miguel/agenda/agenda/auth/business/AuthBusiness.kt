@@ -32,7 +32,6 @@ object AuthBusiness {
 
             AuthDatabase.salvarUsuario(usuario, {
 
-                Log.d("tag", "Usuario salvo com sucesso")
 
             }, {
 

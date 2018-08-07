@@ -11,7 +11,6 @@ object ContatosDatabase {
         Realm.getDefaultInstance().use { realm ->
             realm.beginTransaction()
             realm.copyToRealmOrUpdate(contatos)
-            Log.d("tag", "contatos salvos no banco")
             realm.commitTransaction()
         }
 

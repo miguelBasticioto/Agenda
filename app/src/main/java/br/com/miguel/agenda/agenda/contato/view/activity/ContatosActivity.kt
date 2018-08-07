@@ -37,14 +37,30 @@ class ContatosActivity : AppCompatActivity() {
 
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
-        return true
-    }
-
     private fun setupRecyclerView (){
         recyclerViewContatos.adapter = ContatosAdapter()
         refreshRecyclerView()
+    }
+
+    private fun refreshRecyclerView() {
+
+        recyclerViewSwipeLayout.isRefreshing = true
+
+        (recyclerViewContatos.adapter as ContatosAdapter).refresh({
+
+            recyclerViewSwipeLayout.isRefreshing = false
+        }, {
+            Snackbar.make(recyclerViewContatos, getString(R.string.semConexao), Snackbar.LENGTH_SHORT).show()
+            recyclerViewSwipeLayout.isRefreshing = false
+        })
+    }
+
+    private fun setupSwipeLayout() {
+
+        recyclerViewSwipeLayout.setOnRefreshListener {
+            refreshRecyclerView()
+        }
+
     }
 
     private fun setupAdicionarContatFab() {
@@ -56,6 +72,11 @@ class ContatosActivity : AppCompatActivity() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
         when (item!!.itemId) {
@@ -63,7 +84,6 @@ class ContatosActivity : AppCompatActivity() {
 
                 //Configurar botao de logout
                 AuthBusiness.logout({
-                    Log.d("Logout", "Deslogado")
                     //Voltar para tela de login
                     finish()
                 }, {
@@ -84,27 +104,6 @@ class ContatosActivity : AppCompatActivity() {
         clicado = true
         Snackbar.make(recyclerViewContatos, getString(R.string.confirmarSair), 2000).show()
         Handler().postDelayed({ clicado = false }, 2000)
-    }
-
-    private fun setupSwipeLayout() {
-
-        recyclerViewSwipeLayout.setOnRefreshListener {
-            refreshRecyclerView()
-        }
-
-    }
-
-    private fun refreshRecyclerView() {
-
-        recyclerViewSwipeLayout.isRefreshing = true
-
-        (recyclerViewContatos.adapter as ContatosAdapter).refresh({
-
-            recyclerViewSwipeLayout.isRefreshing = false
-        }, {
-            Snackbar.make(recyclerViewContatos, getString(R.string.semConexao), Snackbar.LENGTH_SHORT).show()
-            recyclerViewSwipeLayout.isRefreshing = false
-        })
     }
 
 }

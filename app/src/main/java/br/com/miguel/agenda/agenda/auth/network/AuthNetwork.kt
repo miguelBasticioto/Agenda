@@ -81,7 +81,6 @@ object AuthNetwork {
                     }
 
                 }, {
-                    Log.d("tag", it.message.toString())
                     onFailure(R.string.semConexao)
                 })
 
@@ -93,7 +92,6 @@ object AuthNetwork {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ resposta ->
-                    Log.d("Logout", resposta.message())
                     onSuccess()
                 }, {
                     onFailure()

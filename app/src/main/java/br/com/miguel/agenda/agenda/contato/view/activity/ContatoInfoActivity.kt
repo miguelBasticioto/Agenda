@@ -2,6 +2,7 @@ package br.com.miguel.agenda.agenda.contato.view.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -85,8 +86,7 @@ class ContatoInfoActivity : AppCompatActivity() {
                 if (!nomeContatoEditText.text.isEmpty() && !emailContatoEditText.text.isEmpty() &&
                         !telefoneContatoEditText.text.isEmpty() && !imagemUrlContatoEditText.text.isEmpty()) {
 
-                    criarContatoButton.isEnabled = false
-                    criarContatoProgressBar.visibility = View.VISIBLE
+                    mostrarFeedback()
 
                     val contato = Contato()
                     contato.id = contatoId
@@ -103,12 +103,10 @@ class ContatoInfoActivity : AppCompatActivity() {
                         startActivity(intent)
 
                     }, {
-                        criarContatoButton.isEnabled = true
-                        criarContatoProgressBar.visibility = View.INVISIBLE
-                        Snackbar.make(criarContatoButton, getString(R.string.semConexao), Snackbar.LENGTH_SHORT).show()
+                        esconderFeedback(R.string.semConexao)
                     })
                 } else {
-                    Snackbar.make(criarContatoButton, R.string.camposObrigatorios, Snackbar.LENGTH_SHORT).show()
+                    esconderFeedback(R.string.camposObrigatorios)
                 }
             }
 
@@ -119,8 +117,7 @@ class ContatoInfoActivity : AppCompatActivity() {
 
         deletarContatoButton.setOnClickListener {
 
-            deletarContatoButton.isEnabled = false
-            deletarContatoProgressBar.visibility = View.VISIBLE
+            mostrarFeedback()
 
             ContatosBusiness.deletarContato( contatoId, {
 
@@ -128,12 +125,22 @@ class ContatoInfoActivity : AppCompatActivity() {
                 startActivity(intent)
             }, {
 
-                deletarContatoButton.isEnabled = true
-                deletarContatoProgressBar.visibility = View.INVISIBLE
-                Snackbar.make(deletarContatoButton, getString(R.string.semConexao), Snackbar.LENGTH_SHORT).show()
+                esconderFeedback(R.string.semConexao)
 
             })
         }
     }
 
+    fun mostrarFeedback (){
+        deletarContatoButton.isEnabled = false
+        criarContatoButton.isEnabled = false
+        criarContatoProgressBar.visibility = View.VISIBLE
+    }
+
+    fun esconderFeedback(@StringRes mensagem:Int){
+        deletarContatoButton.isEnabled = true
+        criarContatoButton.isEnabled = true
+        criarContatoProgressBar.visibility = View.INVISIBLE
+        Snackbar.make(deletarContatoButton, mensagem, Snackbar.LENGTH_SHORT).show()
+    }
 }
