@@ -22,7 +22,6 @@ class ContatoInfoActivity : AppCompatActivity() {
 
         Realm.init(this)
 
-
         val contatoId = intent.getIntExtra("contatoId", -1)
 
         if (contatoId != -1) {

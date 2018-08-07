@@ -31,6 +31,7 @@ class ContatosActivity : AppCompatActivity() {
 
         Realm.init(this)
 
+        setupRecyclerView()
         setupSwipeLayout()
         setupAdicionarContatFab()
 
@@ -41,8 +42,9 @@ class ContatosActivity : AppCompatActivity() {
         return true
     }
 
-    private fun setupRecyclerView(contatos: List<Contato>) {
-        recyclerViewContatos.adapter = ContatosAdapter(contatos)
+    private fun setupRecyclerView (){
+        recyclerViewContatos.adapter = ContatosAdapter()
+        refreshRecyclerView()
     }
 
     private fun setupAdicionarContatFab() {
@@ -83,7 +85,6 @@ class ContatosActivity : AppCompatActivity() {
     }
 
     private fun setupSwipeLayout() {
-        refreshRecyclerView()
 
         recyclerViewSwipeLayout.setOnRefreshListener {
             refreshRecyclerView()
@@ -93,24 +94,17 @@ class ContatosActivity : AppCompatActivity() {
     private fun refreshRecyclerView() {
 
         recyclerViewSwipeLayout.isRefreshing = true
-        var contatos = ContatosBusiness.listarContatosDatabase()
-        setupRecyclerView(contatos.sortedBy { it.name })
+
+        (recyclerViewContatos.adapter as ContatosAdapter).refresh({
+
+            recyclerViewSwipeLayout.isRefreshing = false
+        }, {
+            Snackbar.make(recyclerViewContatos, getString(R.string.semConexao), Snackbar.LENGTH_SHORT).show()
+            recyclerViewSwipeLayout.isRefreshing = false
+        })
 
         recyclerViewProgress.visibility = View.INVISIBLE
 
-        recyclerViewSwipeLayout.isRefreshing = false
-
-        ContatosBusiness.listarContatosNetwork({ contatos ->
-
-            setupRecyclerView(contatos.sortedBy { it.name })
-            recyclerViewSwipeLayout.isRefreshing = false
-
-        }, {
-
-            recyclerViewSwipeLayout.isRefreshing = false
-            Snackbar.make(recyclerViewContatos, R.string.semConexao, Snackbar.LENGTH_SHORT).show()
-
-        }, usuario)
 
 
     }

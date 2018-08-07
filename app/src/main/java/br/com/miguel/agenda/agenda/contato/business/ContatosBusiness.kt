@@ -34,16 +34,17 @@ object ContatosBusiness {
         }
     }
 
-    fun listarContatosDatabase(): List<Contato> = ContatosDatabase.buscarContatos()
+    fun listarContatosDatabase(): List<Contato> = ContatosDatabase.buscarContatos().sortedBy { it.name.toString().toLowerCase() }
 
     fun listarContatosNetwork(onSuccess: (List<Contato>) -> Unit, onFailure: () -> Unit, usuario: Usuario) {
 
         ContatosNetwork.buscarContatos(usuario.uid!!, usuario.accessToken!!, usuario.client!!, { contatos ->
 
             //Atualizar banco
+
             ContatosDatabase.limparContatos {  }
-            ContatosDatabase.salvarContatos(contatos)
-            onSuccess(contatos)
+            ContatosDatabase.salvarContatos(contatos.sortedBy { it.name.toString().toLowerCase()})
+            onSuccess(contatos.sortedBy { it.name.toString().toLowerCase() })
         }, {
             onFailure()
         })
