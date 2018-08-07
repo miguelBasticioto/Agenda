@@ -56,28 +56,40 @@ object AuthBusiness {
     }
 
     fun buscarUsuario(id: Int, onSuccess: (usuario: Usuario) -> Unit) {
-        AuthDatabase.buscarUsuario(id) {
+        AuthDatabase.buscarUsuario() { usuario ->
 
-            onSuccess(it)
+            onSuccess(usuario)
 
         }
     }
 
-    fun logout(uid: String, accessToken: String, client: String, onSuccess: () -> Unit, onFailure: () -> Unit) {
-        AuthNetwork.logout(uid, accessToken, client, {
+    fun buscarUsuario(onSuccess: (usuario: Usuario) -> Unit) {
+        AuthDatabase.buscarUsuario { usuario ->
 
-            //Apagar do banco
-            AuthDatabase.limparBanco {
+            onSuccess(usuario)
 
-                onSuccess()
-
-            }
-        }, {
-
-            onFailure()
-
-        })
+        }
     }
+
+    fun logout( onSuccess: () -> Unit, onFailure: () -> Unit) {
+        AuthBusiness.buscarUsuario { usuario ->
+            AuthNetwork.logout(usuario.uid!!, usuario.accessToken!!, usuario.client!!, {
+
+                //Apagar do banco
+                AuthDatabase.limparBanco {
+
+                    onSuccess()
+
+                }
+            }, {
+
+                onFailure()
+
+            })
+        }
+    }
+
+    fun buscarUsuarioDatabase():Usuario  = AuthDatabase.recuperarUsuario()
 
     fun checarUsuario(): Usuario? {
 
@@ -88,5 +100,7 @@ object AuthBusiness {
     fun validarEmail(email: String): Boolean = email.isNotEmpty()
 
     fun validarSenha(password: String): Boolean = password.isNotEmpty()
+
+    fun isLogado(): Boolean = AuthDatabase.contagemUsuario() > 0
 
 }

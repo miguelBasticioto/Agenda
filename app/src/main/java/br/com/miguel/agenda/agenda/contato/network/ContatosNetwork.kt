@@ -69,8 +69,8 @@ object ContatosNetwork {
                 })
     }
 
-    fun deletarContato(uid: String, accessToken: String, client: String, id: String, onSuccess: () -> Unit, onFailure: () -> Unit) {
-        contatosApi.deletarContato(uid, accessToken, client, "application/json", id)
+    fun deletarContato(uid: String, accessToken: String, client: String, id: Int, onSuccess: () -> Unit, onFailure: () -> Unit) {
+        contatosApi.deletarContato(uid, accessToken, client, "application/json", id.toString())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response ->

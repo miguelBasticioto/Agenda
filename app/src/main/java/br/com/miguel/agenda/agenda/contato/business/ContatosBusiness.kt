@@ -1,7 +1,9 @@
 package br.com.miguel.agenda.agenda.contato.business
 
 import android.util.Log
+import br.com.miguel.agenda.agenda.auth.business.AuthBusiness
 import br.com.miguel.agenda.agenda.auth.database.AuthDatabase
+import br.com.miguel.agenda.agenda.auth.model.Usuario
 import br.com.miguel.agenda.agenda.contato.database.ContatosDatabase
 import br.com.miguel.agenda.agenda.contato.model.Contato
 import br.com.miguel.agenda.agenda.contato.network.ContatosNetwork
@@ -11,7 +13,7 @@ import br.com.miguel.agenda.agenda.contato.network.ContatosNetwork
  */
 object ContatosBusiness {
     fun buscarUsuario(id: Int, onSuccess: (contatos: List<Contato>) -> Unit, onFailure: () -> Unit) {
-        AuthDatabase.buscarUsuario(id) {
+        AuthDatabase.buscarUsuario() {
             Log.d("tag", it.client.toString())
             Log.d("tag", it.uid.toString())
             Log.d("tag", it.accessToken.toString())
@@ -29,11 +31,13 @@ object ContatosBusiness {
         }
     }
 
-    fun criarContato(idUsuario: Int, contato: Contato, onSuccess: () -> Unit, onFailure: () -> Unit) {
-        AuthDatabase.buscarUsuario(idUsuario) {
-            ContatosNetwork.criarContato(it, contato, {
-                Log.d("erro", it.id.toString())
-                ContatosDatabase.criarContato(it) {
+    fun criarContato(contato: Contato, onSuccess: () -> Unit, onFailure: () -> Unit) {
+        AuthDatabase.buscarUsuario { usuario ->
+
+            ContatosNetwork.criarContato(usuario, contato, { contato ->
+
+                Log.d("erro", contato.id.toString())
+                ContatosDatabase.criarContato(contato) {
                     onSuccess()
                 }
             }, {
@@ -49,41 +53,56 @@ object ContatosBusiness {
     }
 
     fun buscarContatosDatabase(onSuccess: (List<Contato>) -> Unit) {
-        ContatosDatabase.buscarContatos { listaContatos ->
-            onSuccess(listaContatos)
+            onSuccess(ContatosDatabase.buscarContatos())
+
+    }
+
+    fun listarContatosDatabase(): List<Contato> = ContatosDatabase.buscarContatos()
+
+    fun listarContatosNetwork(onSuccess: (List<Contato>) -> Unit, onFailure: () -> Unit, usuario: Usuario) {
+
+        ContatosNetwork.buscarContatos(usuario.uid!!, usuario.accessToken!!, usuario.client!!, { contatos ->
+
+            //Atualizar banco
+            ContatosDatabase.limparContatos {  }
+            ContatosDatabase.salvarContatos(contatos)
+            onSuccess(contatos)
+        }, {
+            onFailure()
+        })
+
+    }
+
+    fun editarContato(contato: Contato, id: String, onSuccess: () -> Unit, onFailure: () -> Unit) {
+
+        AuthBusiness.buscarUsuario { usuario ->
+
+            ContatosNetwork.editarContato(usuario.uid!!, usuario.accessToken!!, usuario.client!!, contato, id, {
+                ContatosDatabase.editarContato(contato) {
+                    onSuccess()
+                }
+            }, {
+                onFailure()
+            })
+
         }
+
     }
 
-    fun editarContato(uid: String, cliente: String, accessToken: String, contato: Contato, id: String, onSuccess: () -> Unit, onFailure: () -> Unit) {
+    fun deletarContato(id:Int, onSuccess: () -> Unit, onFailure: () -> Unit) {
 
-        Log.d("info", uid)
-        Log.d("info", cliente)
-        Log.d("info", accessToken)
-        Log.d("info", id)
+        AuthBusiness.buscarUsuario { usuario ->
+            ContatosNetwork.deletarContato(usuario.uid!!, usuario.accessToken!!, usuario.client!!, id, {
+                ContatosDatabase.deletarContato(id) {
+                    Log.d("tag", "deletando contato de id: ${id}")
+                    onSuccess()
+                }
+            }, {
+                onFailure()
+            })
+        }
 
-        ContatosNetwork.editarContato(uid, accessToken, cliente, contato, id, {
-            ContatosDatabase.editarContato(contato) {
-                onSuccess()
-            }
-        }, {
-            onFailure()
-        })
-    }
 
-    fun deletarContato(uid: String, cliente: String, accessToken: String, id: String, onSuccess: () -> Unit, onFailure: () -> Unit) {
-        Log.d("info", uid)
-        Log.d("info", cliente)
-        Log.d("info", accessToken)
-        Log.d("info", id)
-
-        ContatosNetwork.deletarContato(uid, accessToken, cliente, id, {
-            ContatosDatabase.deletarContato(id.toInt()) {
-                Log.d("tag", "deletando contato de id: ${id}")
-                onSuccess()
-            }
-        }, {
-            onFailure()
-        })
     }
 
     fun limparContatos(onSuccess: () -> Unit){

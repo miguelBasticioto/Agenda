@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import br.com.miguel.agenda.R
 import br.com.miguel.agenda.agenda.auth.business.AuthBusiness
+import br.com.miguel.agenda.agenda.auth.database.AuthDatabase
 import br.com.miguel.agenda.agenda.contato.view.activity.ContatosActivity
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_login.*
@@ -22,10 +23,10 @@ class AuthActivity : AppCompatActivity() {
 
         val usuario = AuthBusiness.checarUsuario()
 
-        if (usuario != null) {
+        if (AuthBusiness.isLogado()) {
             //proxima tela
             val extraBundle = Bundle()
-            extraBundle.putInt("id", usuario.id)
+            extraBundle.putInt("id", usuario!!.id)
 
             val intent = Intent(this, ContatosActivity::class.java)
             intent.putExtras(extraBundle)

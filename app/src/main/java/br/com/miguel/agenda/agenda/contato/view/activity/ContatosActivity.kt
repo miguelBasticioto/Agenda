@@ -11,6 +11,7 @@ import android.view.MenuItem
 import android.view.View
 import br.com.miguel.agenda.R
 import br.com.miguel.agenda.agenda.auth.business.AuthBusiness
+import br.com.miguel.agenda.agenda.auth.model.Usuario
 import br.com.miguel.agenda.agenda.auth.view.activity.AuthActivity
 import br.com.miguel.agenda.agenda.contato.adapter.ContatosAdapter
 import br.com.miguel.agenda.agenda.contato.business.ContatosBusiness
@@ -20,22 +21,18 @@ import kotlinx.android.synthetic.main.activity_contatos.*
 
 class ContatosActivity : AppCompatActivity() {
 
-    private var id = -1
     private var clicado = false
+    private var usuario: Usuario = AuthBusiness.buscarUsuarioDatabase()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contatos)
         setSupportActionBar(toolbar)
 
-        id = intent.getIntExtra("id", 0)
-
         Realm.init(this)
 
-        buscarContatos(id)
-
         setupSwipeLayout()
-        setupAdicionarContatFab(id)
+        setupAdicionarContatFab()
 
     }
 
@@ -44,33 +41,14 @@ class ContatosActivity : AppCompatActivity() {
         return true
     }
 
-    private fun buscarContatos(id: Int) {
-
-        recyclerViewProgress.visibility = View.VISIBLE
-
-        //buscar do banco
-        ContatosBusiness.buscarContatosDatabase {
-
-            recyclerViewProgress.visibility = View.INVISIBLE
-            setupRecyclerView(it.sortedBy { it.name?.toLowerCase() }, id)
-        }
-
-        //Atualizar
-        refreshRecyclerView()
-
+    private fun setupRecyclerView(contatos: List<Contato>) {
+        recyclerViewContatos.adapter = ContatosAdapter(contatos)
     }
 
-    private fun setupRecyclerView(contatos: List<Contato>, usuarioId: Int) {
-        recyclerViewContatos.adapter = ContatosAdapter(contatos, usuarioId)
-    }
-
-    private fun setupAdicionarContatFab(id: Int) {
+    private fun setupAdicionarContatFab() {
         adicionarContatoFab.setOnClickListener {
-            val extraBundle = Bundle()
-            extraBundle.putInt("usuarioId", id)
 
             val intent = Intent(this, ContatoInfoActivity::class.java)
-            intent.putExtras(extraBundle)
 
             startActivity(intent)
         }
@@ -80,16 +58,14 @@ class ContatosActivity : AppCompatActivity() {
         when (item!!.itemId) {
             R.id.logout -> {
                 //Configurar botao de logout
-                AuthBusiness.buscarUsuario(id) {
-                    AuthBusiness.logout(it.uid!!, it.accessToken!!, it.client!!, {
-                        Log.d("Logout", "Deslogado")
-                        //Voltar para tela de login
-                        val intent = Intent(this, AuthActivity::class.java)
-                        startActivity(intent)
-                    }, {
-                        Snackbar.make(toolbar, getString(R.string.semConexao), Snackbar.LENGTH_SHORT).show()
-                    })
-                }
+                AuthBusiness.logout({
+                    Log.d("Logout", "Deslogado")
+                    //Voltar para tela de login
+                    val intent = Intent(this, AuthActivity::class.java)
+                    startActivity(intent)
+                }, {
+                    Snackbar.make(toolbar, getString(R.string.semConexao), Snackbar.LENGTH_SHORT).show()
+                })
             }
         }
         return super.onOptionsItemSelected(item)
@@ -107,6 +83,8 @@ class ContatosActivity : AppCompatActivity() {
     }
 
     private fun setupSwipeLayout() {
+        refreshRecyclerView()
+
         recyclerViewSwipeLayout.setOnRefreshListener {
             refreshRecyclerView()
         }
@@ -115,16 +93,26 @@ class ContatosActivity : AppCompatActivity() {
     private fun refreshRecyclerView() {
 
         recyclerViewSwipeLayout.isRefreshing = true
-        ContatosBusiness.buscarUsuario(id, {
-            setupRecyclerView(it.sortedBy { it.name?.toLowerCase() }, id)
+        var contatos = ContatosBusiness.listarContatosDatabase()
+        setupRecyclerView(contatos.sortedBy { it.name })
+
+        recyclerViewProgress.visibility = View.INVISIBLE
+
+        recyclerViewSwipeLayout.isRefreshing = false
+
+        ContatosBusiness.listarContatosNetwork({ contatos ->
+
+            setupRecyclerView(contatos.sortedBy { it.name })
             recyclerViewSwipeLayout.isRefreshing = false
+
         }, {
+
             recyclerViewSwipeLayout.isRefreshing = false
             Snackbar.make(recyclerViewContatos, R.string.semConexao, Snackbar.LENGTH_SHORT).show()
-            ContatosBusiness.buscarContatosDatabase {
-                setupRecyclerView(it.sortedBy { it.name?.toLowerCase() }, id)
-            }
-            recyclerViewSwipeLayout.isRefreshing = false
-        })
+
+        }, usuario)
+
+
     }
+
 }
