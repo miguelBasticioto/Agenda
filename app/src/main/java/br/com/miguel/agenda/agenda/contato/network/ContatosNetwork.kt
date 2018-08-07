@@ -36,8 +36,8 @@ object ContatosNetwork {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ contatos ->
-                    contatos.let {
-                        onSuccess(it)
+                    contatos.let {contatos ->
+                        onSuccess(contatos)
                     }
                 }, {
                     onFailure()
@@ -48,8 +48,8 @@ object ContatosNetwork {
         contatosApi.criarContato(user.uid!!, user.accessToken!!, user.client!!, "application/json", contato)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    onSuccess(it)
+                .subscribe({contato ->
+                    onSuccess(contato)
                 }, {
                     onFailure()
                 })
@@ -59,8 +59,8 @@ object ContatosNetwork {
         contatosApi.editarContato(uid, accessToken, client, "application/json", contato, id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    it.let {
+                .subscribe({contato ->
+                    contato.let {
                         Log.d("tag", "Editado com sucesso")
                         onSuccess()
                     }

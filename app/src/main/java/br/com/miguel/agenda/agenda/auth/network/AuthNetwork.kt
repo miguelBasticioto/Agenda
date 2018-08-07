@@ -34,16 +34,16 @@ object AuthNetwork {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ usuario ->
 
-                    usuario.data.let {
+                    usuario.data.let { usuario ->
 
-                        onSuccess(it!!)
+                        usuario?.run { onSuccess(usuario) }
 
                     }
 
-                }, {
+                }, { erro ->
 
-                    Log.d("tag", it.message.toString())
-                    if (it.message.toString().contains("422")) {
+                    Log.d("tag", erro.message.toString())
+                    if (erro.message.toString().contains("422")) {
                         onFailure()
                     } else {
                         semConexao()

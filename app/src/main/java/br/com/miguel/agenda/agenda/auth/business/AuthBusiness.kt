@@ -11,9 +11,9 @@ object AuthBusiness {
         user.email = email
         user.password = senha
         user.passwordConfirmation = senha
-        AuthNetwork.criarUsuario(user, {
+        AuthNetwork.criarUsuario(user, { usuario ->
 
-            onSuccess(it)
+            onSuccess(usuario)
 
         }, {
 
@@ -32,9 +32,9 @@ object AuthBusiness {
         user.email = email
         user.password = senha
 
-        AuthNetwork.logarUsuario(user, {
+        AuthNetwork.logarUsuario(user, { usuario ->
 
-            AuthDatabase.salvarUsuario(it, {
+            AuthDatabase.salvarUsuario(usuario, {
 
                 Log.d("tag", "Usuario salvo com sucesso")
 
@@ -42,7 +42,7 @@ object AuthBusiness {
 
             })
 
-            onSuccess(it)
+            onSuccess(usuario)
 
         }, {
 

@@ -21,13 +21,13 @@ class AuthActivity : AppCompatActivity() {
 
         Realm.init(this)
 
-        val usuario = AuthBusiness.checarUsuario()
-
         if (AuthBusiness.isLogado()) {
             //proxima tela
 
             val intent = Intent(this, ContatosActivity::class.java)
             startActivity(intent)
+
+            finish()
         }
 
         setupCriarButton()

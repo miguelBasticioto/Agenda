@@ -22,7 +22,6 @@ import kotlinx.android.synthetic.main.activity_contatos.*
 class ContatosActivity : AppCompatActivity() {
 
     private var clicado = false
-    private var usuario: Usuario = AuthBusiness.buscarUsuarioDatabase()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,11 +101,6 @@ class ContatosActivity : AppCompatActivity() {
             Snackbar.make(recyclerViewContatos, getString(R.string.semConexao), Snackbar.LENGTH_SHORT).show()
             recyclerViewSwipeLayout.isRefreshing = false
         })
-
-        recyclerViewProgress.visibility = View.INVISIBLE
-
-
-
     }
 
 }

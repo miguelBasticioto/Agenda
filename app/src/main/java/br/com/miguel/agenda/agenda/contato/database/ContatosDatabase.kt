@@ -42,9 +42,7 @@ object ContatosDatabase {
     }
 
     fun buscarContatos(): List<Contato> {
-        Realm.getDefaultInstance().use { realm ->
-            return  realm.where(Contato::class.java).findAll()
-        }
+        return  Realm.getDefaultInstance().where(Contato::class.java).findAll()
     }
 
     fun editarContato(contato: Contato, onSuccess: () -> Unit) {
