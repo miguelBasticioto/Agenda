@@ -22,8 +22,6 @@ class ContatoInfoActivity : AppCompatActivity() {
 
         Realm.init(this)
 
-        val id = intent.getIntExtra("usuarioId", 0)
-
 
         val contatoId = intent.getIntExtra("contatoId", -1)
 
@@ -41,11 +39,11 @@ class ContatoInfoActivity : AppCompatActivity() {
             }
         }
 
-        setupCriarContatoButton(id, contatoId)
-        setupDeletarContatoButton(id, contatoId)
+        setupCriarContatoButton(contatoId)
+        setupDeletarContatoButton(contatoId)
     }
 
-    private fun setupCriarContatoButton(usuarioId: Int, contatoId: Int) {
+    private fun setupCriarContatoButton(contatoId: Int) {
         if (contatoId == -1) {
             criarContatoButton.setOnClickListener {
 
@@ -62,11 +60,8 @@ class ContatoInfoActivity : AppCompatActivity() {
                     contato.picture = imagemUrlContatoEditText.text.toString()
 
                     ContatosBusiness.criarContato(contato, {
-                        val extraBundle = Bundle()
-                        extraBundle.putInt("id", usuarioId)
 
                         val intent = Intent(this, ContatosActivity::class.java)
-                        intent.putExtras(extraBundle)
                         startActivity(intent)
                     }, {
                         criarContatoButton.isEnabled = true
@@ -85,33 +80,28 @@ class ContatoInfoActivity : AppCompatActivity() {
                 if (!nomeContatoEditText.text.isEmpty() && !emailContatoEditText.text.isEmpty() &&
                         !telefoneContatoEditText.text.isEmpty() && !imagemUrlContatoEditText.text.isEmpty()) {
 
-                    AuthBusiness.buscarUsuario(usuarioId) {
-                        criarContatoButton.isEnabled = false
-                        criarContatoProgressBar.visibility = View.VISIBLE
+                    criarContatoButton.isEnabled = false
+                    criarContatoProgressBar.visibility = View.VISIBLE
 
-                        val contato = Contato()
-                        contato.id = contatoId
-                        contato.name = nomeContatoEditText.text.toString()
-                        contato.email = emailContatoEditText.text.toString()
-                        contato.phone = telefoneContatoEditText.text.toString()
-                        contato.picture = imagemUrlContatoEditText.text.toString()
-                        contato.birth = 0
+                    val contato = Contato()
+                    contato.id = contatoId
+                    contato.name = nomeContatoEditText.text.toString()
+                    contato.email = emailContatoEditText.text.toString()
+                    contato.phone = telefoneContatoEditText.text.toString()
+                    contato.picture = imagemUrlContatoEditText.text.toString()
+                    contato.birth = 0
 
-                        ContatosBusiness.editarContato(contato, contatoId.toString(), {
-                            //chamar proxima tela
-                            val extraBundle = Bundle()
-                            extraBundle.putInt("id", usuarioId)
+                    ContatosBusiness.editarContato(contato, contatoId.toString(), {
+                        //chamar proxima tela
 
-                            val intent = Intent(this, ContatosActivity::class.java)
-                            intent.putExtras(extraBundle)
-                            startActivity(intent)
+                        val intent = Intent(this, ContatosActivity::class.java)
+                        startActivity(intent)
 
-                        }, {
-                            criarContatoButton.isEnabled = true
-                            criarContatoProgressBar.visibility = View.INVISIBLE
-                            Snackbar.make(criarContatoButton, getString(R.string.semConexao), Snackbar.LENGTH_SHORT).show()
-                        })
-                    }
+                    }, {
+                        criarContatoButton.isEnabled = true
+                        criarContatoProgressBar.visibility = View.INVISIBLE
+                        Snackbar.make(criarContatoButton, getString(R.string.semConexao), Snackbar.LENGTH_SHORT).show()
+                    })
                 } else {
                     Snackbar.make(criarContatoButton, R.string.camposObrigatorios, Snackbar.LENGTH_SHORT).show()
                 }
@@ -120,27 +110,23 @@ class ContatoInfoActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupDeletarContatoButton(usuarioId: Int, contatoId: Int) {
+    private fun setupDeletarContatoButton(contatoId: Int) {
         deletarContatoButton.setOnClickListener {
-            AuthBusiness.buscarUsuario(usuarioId) {
-                deletarContatoButton.isEnabled = false
-                deletarContatoProgressBar.visibility = View.VISIBLE
 
-                ContatosBusiness.deletarContato( contatoId, {
-                    val extraBundle = Bundle()
-                    extraBundle.putInt("id", usuarioId)
+            deletarContatoButton.isEnabled = false
+            deletarContatoProgressBar.visibility = View.VISIBLE
 
-                    val intent = Intent(this, ContatosActivity::class.java)
-                    intent.putExtras(extraBundle)
-                    startActivity(intent)
-                }, {
+            ContatosBusiness.deletarContato( contatoId, {
 
-                    deletarContatoButton.isEnabled = true
-                    deletarContatoProgressBar.visibility = View.INVISIBLE
-                    Snackbar.make(deletarContatoButton, getString(R.string.semConexao), Snackbar.LENGTH_SHORT).show()
+                val intent = Intent(this, ContatosActivity::class.java)
+                startActivity(intent)
+            }, {
 
-                })
-            }
+                deletarContatoButton.isEnabled = true
+                deletarContatoProgressBar.visibility = View.INVISIBLE
+                Snackbar.make(deletarContatoButton, getString(R.string.semConexao), Snackbar.LENGTH_SHORT).show()
+
+            })
         }
     }
 }

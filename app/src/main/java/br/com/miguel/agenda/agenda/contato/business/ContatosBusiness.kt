@@ -12,24 +12,6 @@ import br.com.miguel.agenda.agenda.contato.network.ContatosNetwork
  * Created by Miguel Basticioto on 19/07/2018.
  */
 object ContatosBusiness {
-    fun buscarUsuario(id: Int, onSuccess: (contatos: List<Contato>) -> Unit, onFailure: () -> Unit) {
-        AuthDatabase.buscarUsuario() {
-            Log.d("tag", it.client.toString())
-            Log.d("tag", it.uid.toString())
-            Log.d("tag", it.accessToken.toString())
-            Log.d("tag", "\n")
-
-            ContatosNetwork.buscarContatos(it.uid.toString(), it.accessToken.toString(), it.client.toString(), {
-                //Gravar no banco
-                ContatosBusiness.limparContatos {  }
-                ContatosDatabase.salvarContatos(it)
-
-                onSuccess(it)
-            }, {
-                onFailure()
-            })
-        }
-    }
 
     fun criarContato(contato: Contato, onSuccess: () -> Unit, onFailure: () -> Unit) {
         AuthDatabase.buscarUsuario { usuario ->
@@ -50,11 +32,6 @@ object ContatosBusiness {
         ContatosDatabase.buscarContato(contatoId) {
             onSuccess(it)
         }
-    }
-
-    fun buscarContatosDatabase(onSuccess: (List<Contato>) -> Unit) {
-            onSuccess(ContatosDatabase.buscarContatos())
-
     }
 
     fun listarContatosDatabase(): List<Contato> = ContatosDatabase.buscarContatos()
@@ -103,11 +80,5 @@ object ContatosBusiness {
         }
 
 
-    }
-
-    fun limparContatos(onSuccess: () -> Unit){
-        ContatosDatabase.limparContatos {
-            onSuccess()
-        }
     }
 }

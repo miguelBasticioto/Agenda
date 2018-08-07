@@ -55,14 +55,6 @@ object AuthBusiness {
         })
     }
 
-    fun buscarUsuario(id: Int, onSuccess: (usuario: Usuario) -> Unit) {
-        AuthDatabase.buscarUsuario() { usuario ->
-
-            onSuccess(usuario)
-
-        }
-    }
-
     fun buscarUsuario(onSuccess: (usuario: Usuario) -> Unit) {
         AuthDatabase.buscarUsuario { usuario ->
 

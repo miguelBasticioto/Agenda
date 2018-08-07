@@ -25,11 +25,8 @@ class AuthActivity : AppCompatActivity() {
 
         if (AuthBusiness.isLogado()) {
             //proxima tela
-            val extraBundle = Bundle()
-            extraBundle.putInt("id", usuario!!.id)
 
             val intent = Intent(this, ContatosActivity::class.java)
-            intent.putExtras(extraBundle)
             startActivity(intent)
         }
 
@@ -84,12 +81,10 @@ class AuthActivity : AppCompatActivity() {
 
                     Snackbar.make(view, getString(R.string.logadoSucesso), Snackbar.LENGTH_SHORT).show()
 
-                    val extraBundle = Bundle()
-                    extraBundle.putInt("id", it.id)
 
                     val intent = Intent(this, ContatosActivity::class.java)
-                    intent.putExtras(extraBundle)
                     startActivity(intent)
+
                     finish()
 
                     entrarProgress.visibility = View.INVISIBLE
