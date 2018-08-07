@@ -56,8 +56,7 @@ class ContatoInfoActivity : AppCompatActivity() {
 
                 if (name.isNotEmpty() && email.isNotEmpty() && phone.isNotEmpty() && picture.isNotEmpty()) {
 
-                    criarContatoButton.isEnabled = false
-                    criarContatoProgressBar.visibility = View.VISIBLE
+                    mostrarFeedback()
 
                     var contato = Contato()
                     contato.name = name
@@ -70,12 +69,10 @@ class ContatoInfoActivity : AppCompatActivity() {
                         val intent = Intent(this, ContatosActivity::class.java)
                         startActivity(intent)
                     }, {
-                        criarContatoButton.isEnabled = true
-                        criarContatoProgressBar.visibility = View.INVISIBLE
-                        Snackbar.make(criarContatoButton, getString(R.string.semConexao), Snackbar.LENGTH_SHORT).show()
+                        esconderFeedback(R.string.semConexao)
                     })
                 } else {
-                    Snackbar.make(criarContatoButton, R.string.camposObrigatorios, Snackbar.LENGTH_SHORT).show()
+                    esconderFeedback(R.string.camposObrigatorios)
                 }
 
             }
@@ -89,6 +86,7 @@ class ContatoInfoActivity : AppCompatActivity() {
                     mostrarFeedback()
 
                     val contato = Contato()
+
                     contato.id = contatoId
                     contato.name = nomeContatoEditText.text.toString()
                     contato.email = emailContatoEditText.text.toString()
@@ -143,4 +141,5 @@ class ContatoInfoActivity : AppCompatActivity() {
         criarContatoProgressBar.visibility = View.INVISIBLE
         Snackbar.make(deletarContatoButton, mensagem, Snackbar.LENGTH_SHORT).show()
     }
+
 }
