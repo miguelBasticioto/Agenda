@@ -48,13 +48,9 @@ class AuthActivity : AppCompatActivity() {
 
                     esconderFeedback(R.string.usuarioCriadoSucesso)
 
-                }, {
+                }, { mensagemRes->
 
-                    esconderFeedback(R.string.usuarioCriadoFracasso)
-
-                }, {
-
-                    esconderFeedback(R.string.semConexao)
+                    esconderFeedback(mensagemRes)
 
                 })
             } else {
@@ -88,10 +84,8 @@ class AuthActivity : AppCompatActivity() {
                     finish()
 
                     entrarProgress.visibility = View.INVISIBLE
-                }, {
-                    esconderFeedback(R.string.logadoFracasso)
-                }, {
-                    esconderFeedback(R.string.semConexao)
+                }, { mensagemRes ->
+                    esconderFeedback(mensagemRes)
                 })
             } else {
                 Snackbar.make(view, R.string.camposObrigatorios, Snackbar.LENGTH_SHORT).show()

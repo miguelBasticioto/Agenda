@@ -1,6 +1,8 @@
 package br.com.miguel.agenda.agenda.auth.network
 
+import android.support.annotation.StringRes
 import android.util.Log
+import br.com.miguel.agenda.R
 import br.com.miguel.agenda.agenda.auth.model.Usuario
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -28,7 +30,7 @@ object AuthNetwork {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create()).build()
     }
 
-    fun criarUsuario(user: Usuario, onSuccess: (usuario: Usuario) -> Unit, onFailure: () -> Unit, semConexao: () -> Unit) {
+    fun criarUsuario(user: Usuario, onSuccess: (usuario: Usuario) -> Unit, onFailure: (mensagem: Int) -> Unit) {
         loginAPI.criarUsuario(user)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -41,18 +43,18 @@ object AuthNetwork {
                     }
 
                 }, { erro ->
-
-                    Log.d("tag", erro.message.toString())
-                    if (erro.message.toString().contains("422")) {
-                        onFailure()
-                    } else {
-                        semConexao()
+                    if(erro.message.toString().contains("422")){
+                        onFailure(R.string.usuarioCriadoFracasso)
+                        return@subscribe
                     }
+
+                    onFailure(R.string.semConexao)
+
                 })
     }
 
-    fun logarUsuario(user: Usuario, onSuccess: (usuario: Usuario) -> Unit, onFailure: () -> Unit, semConexao: () -> Unit) {
-        var semConexao = true
+    fun logarUsuario(user: Usuario, onSuccess: (usuario: Usuario) -> Unit, onFailure: (mensagem: Int) -> Unit) {
+
         loginAPI.logarUsuario(user)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -60,9 +62,9 @@ object AuthNetwork {
 
                     response.headers().get("uid")
 
-                    if (response.code() != 200) {
-                        semConexao = false
-                        onFailure()
+                    if(!response.isSuccessful){
+                        onFailure(R.string.logadoFracasso)
+                        return@subscribe
                     }
 
                     response.body()?.data.let { usuario ->
@@ -74,7 +76,8 @@ object AuthNetwork {
                     }
 
                 }, {
-                    if (semConexao) semConexao()
+                    Log.d("tag", it.message.toString())
+                    onFailure(R.string.semConexao)
                 })
 
     }
