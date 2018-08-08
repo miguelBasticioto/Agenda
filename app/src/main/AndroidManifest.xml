@@ -11,16 +11,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".agenda.auth.view.activity.AuthActivity">
+        <activity android:name="br.com.miguel.agenda.agenda.module.auth.view.activity.AuthActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".agenda.contato.view.activity.ContatosActivity"
+        <activity android:name="br.com.miguel.agenda.agenda.module.contato.view.activity.ContatosActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".agenda.contato.view.activity.ContatoInfoActivity"/>
+        <activity android:name="br.com.miguel.agenda.agenda.module.contato.view.activity.ContatoInfoActivity"/>
 
     </application>
 
