@@ -13,7 +13,7 @@
         android:layout_marginBottom="32dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:hint="Email"
+        android:hint="@string/emailHint"
         android:inputType="textEmailAddress"
         android:text="asdasdg@asdasdg3.com"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -28,7 +28,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:hint="Password"
+        android:hint="@string/passwordHint"
         android:inputType="textPassword"
         android:text="12345678"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,7 +42,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Entrar"
+        android:text="@string/entrarButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordEditText" />
@@ -54,7 +54,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Criar"
+        android:text="@string/criarButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/entrarButton" />
@@ -69,6 +69,5 @@
         app:layout_constraintStart_toEndOf="@+id/entrarButton"
         app:layout_constraintTop_toBottomOf="@+id/passwordEditText"
         android:visibility="invisible"/>
-
 
 </android.support.constraint.ConstraintLayout>

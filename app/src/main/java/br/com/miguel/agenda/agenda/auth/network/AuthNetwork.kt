@@ -18,7 +18,7 @@ object AuthNetwork {
     const val accessToken = "access-token"
     const val client = "client"
 
-    val loginAPI by lazy {
+    private val loginAPI by lazy {
         getRetrofit().create(AuthAPI::class.java)
     }
 
@@ -89,7 +89,7 @@ object AuthNetwork {
         loginAPI.logout(uid, accessToken, client)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ resposta ->
+                .subscribe({
                     onSuccess()
                 }, {
                     onFailure()

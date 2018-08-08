@@ -13,7 +13,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
-        android:hint="Nome"
+        android:hint="@string/nomeHint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
@@ -25,7 +25,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
-        android:hint="Email"
+        android:hint="@string/emailHint"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -39,7 +39,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
-        android:hint="Telefone"
+        android:hint="@string/telefoneHint"
         android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -54,12 +54,11 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:inputType="text"
-        android:text="http://www.topimagens.com.br/imagens/imagens-mais-novas.jpg"
+        android:text="@string/imagemUrl"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/telefoneContatoEditText" />
-
 
     <Button
         android:id="@+id/criarContatoButton"
@@ -68,7 +67,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="36dp"
-        android:text="Criar"
+        android:text="@string/criarButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,7 +80,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Deletar"
+        android:text="@string/deletarButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/criarContatoButton"
@@ -97,6 +96,5 @@
         app:layout_constraintStart_toEndOf="@+id/criarContatoButton"
         app:layout_constraintTop_toBottomOf="@+id/imagemUrlContatoEditText"
         android:visibility="invisible"/>
-
 
 </android.support.constraint.ConstraintLayout>

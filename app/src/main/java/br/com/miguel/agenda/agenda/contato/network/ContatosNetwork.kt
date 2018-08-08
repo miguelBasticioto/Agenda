@@ -66,10 +66,8 @@ object ContatosNetwork {
         contatosApi.editarContato(uid, accessToken, client, "application/json", contato, id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({contato ->
-                    contato.let {
-                        onSuccess()
-                    }
+                .subscribe({
+                    onSuccess()
                 }, {
                     onFailure()
                 })
@@ -81,10 +79,8 @@ object ContatosNetwork {
         contatosApi.deletarContato(uid, accessToken, client, "application/json", id.toString())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ response ->
-                    response.let {
-                        onSuccess()
-                    }
+                .subscribe({
+                    onSuccess()
 
                 }, {
                     onFailure()

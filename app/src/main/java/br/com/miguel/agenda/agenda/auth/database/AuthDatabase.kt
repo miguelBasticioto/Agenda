@@ -5,7 +5,7 @@ import io.realm.Realm
 
 object AuthDatabase {
 
-    fun salvarUsuario(usuario: Usuario, onSuccess: () -> Unit, onFailure: () -> Unit) {
+    fun salvarUsuario(usuario: Usuario, onSuccess: () -> Unit) {
 
         Realm.getDefaultInstance().use { realm ->
 

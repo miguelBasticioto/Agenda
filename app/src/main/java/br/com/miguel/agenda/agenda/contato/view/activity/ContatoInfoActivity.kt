@@ -1,6 +1,5 @@
 package br.com.miguel.agenda.agenda.contato.view.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
@@ -13,6 +12,10 @@ import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_info_contato.*
 
 class ContatoInfoActivity : AppCompatActivity() {
+    private lateinit var name:String
+    private lateinit var email:String
+    private lateinit var phone: String
+    private lateinit var picture:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -26,7 +29,7 @@ class ContatoInfoActivity : AppCompatActivity() {
         if (contatoId != -1) {
             deletarContatoButton.visibility = View.VISIBLE
 
-            criarContatoButton.text = "Salvar"
+            criarContatoButton.text = getString(R.string.salvarButton)
 
             //Buscar contato no banco
             ContatosBusiness.buscarContato(contatoId) { contato ->
@@ -46,16 +49,16 @@ class ContatoInfoActivity : AppCompatActivity() {
         if (contatoId == -1) {
             criarContatoButton.setOnClickListener {
 
-                val name = nomeContatoEditText.text.toString()
-                val email = emailContatoEditText.text.toString()
-                val phone = telefoneContatoEditText.text.toString()
-                val picture = imagemUrlContatoEditText.text.toString()
+                name = nomeContatoEditText.text.toString()
+                email = emailContatoEditText.text.toString()
+                phone = telefoneContatoEditText.text.toString()
+                picture = imagemUrlContatoEditText.text.toString()
 
                 if (name.isNotEmpty() && email.isNotEmpty() && phone.isNotEmpty() && picture.isNotEmpty()) {
 
                     mostrarFeedback()
 
-                    var contato = Contato()
+                    val contato = Contato()
                     contato.name = name
                     contato.email = email
                     contato.phone = phone
@@ -75,19 +78,22 @@ class ContatoInfoActivity : AppCompatActivity() {
         } else {
             //Editar contato
             criarContatoButton.setOnClickListener {
+                name = nomeContatoEditText.text.toString()
+                email = emailContatoEditText.text.toString()
+                phone = telefoneContatoEditText.text.toString()
+                picture = imagemUrlContatoEditText.text.toString()
 
-                if (!nomeContatoEditText.text.isEmpty() && !emailContatoEditText.text.isEmpty() &&
-                        !telefoneContatoEditText.text.isEmpty() && !imagemUrlContatoEditText.text.isEmpty()) {
+                if (name.isNotEmpty() && email.isNotEmpty() && phone.isNotEmpty() && picture.isNotEmpty()) {
 
                     mostrarFeedback()
 
                     val contato = Contato()
 
                     contato.id = contatoId
-                    contato.name = nomeContatoEditText.text.toString()
-                    contato.email = emailContatoEditText.text.toString()
-                    contato.phone = telefoneContatoEditText.text.toString()
-                    contato.picture = imagemUrlContatoEditText.text.toString()
+                    contato.name = name
+                    contato.email = email
+                    contato.phone = phone
+                    contato.picture = picture
                     contato.birth = 0
 
                     ContatosBusiness.editarContato(contato, contatoId.toString(), {
