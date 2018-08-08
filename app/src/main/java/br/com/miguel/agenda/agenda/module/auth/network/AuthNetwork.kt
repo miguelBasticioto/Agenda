@@ -6,7 +6,7 @@ import br.com.miguel.agenda.agenda.module.auth.model.Usuario
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-object AuthNetwork: CoreNetwork() {
+object AuthNetwork: CoreNetwork(){
 
     const val auth = "auth"
     const val signIn = "auth/sign_in"
@@ -16,10 +16,9 @@ object AuthNetwork: CoreNetwork() {
     const val accessToken = "access-token"
     const val client = "client"
 
-
     fun criarUsuario(user: Usuario, onSuccess: (usuario: Usuario) -> Unit, onFailure: (mensagem: Int) -> Unit) {
 
-        loginAPI.criarUsuario(user)
+        authApi.criarUsuario(user)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ usuario ->
@@ -44,7 +43,7 @@ object AuthNetwork: CoreNetwork() {
 
     fun logarUsuario(user: Usuario, onSuccess: (usuario: Usuario) -> Unit, onFailure: (mensagem: Int) -> Unit) {
 
-        loginAPI.logarUsuario(user)
+        authApi.logarUsuario(user)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ response ->
@@ -72,7 +71,7 @@ object AuthNetwork: CoreNetwork() {
 
     fun logout(uid: String, accessToken: String, client: String, onSuccess: () -> Unit, onFailure: () -> Unit) {
 
-        loginAPI.logout(uid, accessToken, client)
+        authApi.logout(uid, accessToken, client)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({

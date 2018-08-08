@@ -8,7 +8,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 open class CoreNetwork {
-    val loginAPI by lazy {
+
+    val authApi by lazy {
         getRetrofit().create(AuthAPI::class.java)
     }
 
@@ -24,4 +25,5 @@ open class CoreNetwork {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create()).build()
 
     }
+
 }
