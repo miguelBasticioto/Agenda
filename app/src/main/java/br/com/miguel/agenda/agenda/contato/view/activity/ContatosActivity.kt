@@ -5,17 +5,11 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import br.com.miguel.agenda.R
 import br.com.miguel.agenda.agenda.auth.business.AuthBusiness
-import br.com.miguel.agenda.agenda.auth.model.Usuario
-import br.com.miguel.agenda.agenda.auth.view.activity.AuthActivity
 import br.com.miguel.agenda.agenda.contato.adapter.ContatosAdapter
-import br.com.miguel.agenda.agenda.contato.business.ContatosBusiness
-import br.com.miguel.agenda.agenda.contato.model.Contato
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_contatos.*
 
@@ -35,6 +29,11 @@ class ContatosActivity : AppCompatActivity() {
         setupSwipeLayout()
         setupAdicionarContatFab()
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        refreshRecyclerView()
     }
 
     private fun setupRecyclerView (){
@@ -65,10 +64,7 @@ class ContatosActivity : AppCompatActivity() {
 
     private fun setupAdicionarContatFab() {
         adicionarContatoFab.setOnClickListener {
-
-            val intent = Intent(this, ContatoInfoActivity::class.java)
-
-            startActivity(intent)
+            intentContatoInfoActivity()
         }
     }
 
@@ -106,4 +102,9 @@ class ContatosActivity : AppCompatActivity() {
         Handler().postDelayed({ clicado = false }, 2000)
     }
 
+    private fun intentContatoInfoActivity() {
+        val intent = Intent(this, ContatoInfoActivity::class.java)
+
+        startActivity(intent)
+    }
 }

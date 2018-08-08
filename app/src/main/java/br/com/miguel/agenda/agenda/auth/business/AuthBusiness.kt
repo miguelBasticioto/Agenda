@@ -1,9 +1,8 @@
 package br.com.miguel.agenda.agenda.auth.business
 
-import android.util.Log
+import br.com.miguel.agenda.agenda.auth.database.AuthDatabase
 import br.com.miguel.agenda.agenda.auth.model.Usuario
 import br.com.miguel.agenda.agenda.auth.network.AuthNetwork
-import br.com.miguel.agenda.agenda.auth.database.AuthDatabase
 
 object AuthBusiness {
 

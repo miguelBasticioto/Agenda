@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.TextView
 import br.com.miguel.agenda.agenda.contato.model.Contato
 import br.com.miguel.agenda.agenda.contato.view.activity.ContatoInfoActivity
 import com.squareup.picasso.Picasso
@@ -26,15 +27,19 @@ class ContatoViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
             Picasso.get().load(contato.picture).into(imageViewContato)
 
             setOnClickListener {
-                val extraBundle = Bundle()
-                extraBundle.putInt("contatoId", contatoId)
-
-                val intent = Intent(textViewEmail.context, ContatoInfoActivity::class.java)
-                intent.putExtras(extraBundle)
-
-                startActivity(textViewEmail.context, intent, extraBundle)
+                intentContatoInfoActivity(textViewEmail)
             }
 
         }
+    }
+
+    private fun intentContatoInfoActivity(textViewEmail: TextView) {
+        val extraBundle = Bundle()
+        extraBundle.putInt("contatoId", contatoId)
+
+        val intent = Intent(textViewEmail.context, ContatoInfoActivity::class.java)
+        intent.putExtras(extraBundle)
+
+        startActivity(textViewEmail.context, intent, extraBundle)
     }
 }

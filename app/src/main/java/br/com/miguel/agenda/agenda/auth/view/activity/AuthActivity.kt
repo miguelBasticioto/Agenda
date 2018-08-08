@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import br.com.miguel.agenda.R
 import br.com.miguel.agenda.agenda.auth.business.AuthBusiness
-import br.com.miguel.agenda.agenda.auth.database.AuthDatabase
 import br.com.miguel.agenda.agenda.contato.view.activity.ContatosActivity
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_login.*
@@ -79,8 +78,7 @@ class AuthActivity : AppCompatActivity() {
 
                 AuthBusiness.logarUsuario(emailEditText.text.toString(), passwordEditText.text.toString(), {
 
-                    val intent = Intent(this, ContatosActivity::class.java)
-                    startActivity(intent)
+                    intentContatosActivity()
 
                     entrarProgress.visibility = View.INVISIBLE
                     esconderFeedback(R.string.logadoSucesso)
@@ -114,5 +112,10 @@ class AuthActivity : AppCompatActivity() {
         entrarButton.isEnabled = true
         criarButton.isEnabled = true
 
+    }
+
+    private fun intentContatosActivity(){
+        val intent = Intent(this, ContatosActivity::class.java)
+        startActivity(intent)
     }
 }

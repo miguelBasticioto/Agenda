@@ -1,6 +1,5 @@
 package br.com.miguel.agenda.agenda.contato.database
 
-import android.util.Log
 import br.com.miguel.agenda.agenda.contato.model.Contato
 import io.realm.Realm
 
@@ -48,9 +47,7 @@ object ContatosDatabase {
 
     }
 
-    fun buscarContatos(): List<Contato> {
-        return  Realm.getDefaultInstance().where(Contato::class.java).findAll()
-    }
+    fun buscarContatos(): List<Contato> = Realm.getDefaultInstance().where(Contato::class.java).findAll()
 
     fun editarContato(contato: Contato, onSuccess: () -> Unit) {
 

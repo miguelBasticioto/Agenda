@@ -7,13 +7,10 @@ import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import br.com.miguel.agenda.R
-import br.com.miguel.agenda.agenda.auth.business.AuthBusiness
 import br.com.miguel.agenda.agenda.contato.business.ContatosBusiness
 import br.com.miguel.agenda.agenda.contato.model.Contato
 import io.realm.Realm
-import kotlinx.android.synthetic.main.activity_contatos.*
 import kotlinx.android.synthetic.main.activity_info_contato.*
-import kotlinx.android.synthetic.main.activity_login.*
 
 class ContatoInfoActivity : AppCompatActivity() {
 
@@ -66,8 +63,7 @@ class ContatoInfoActivity : AppCompatActivity() {
 
                     ContatosBusiness.criarContato(contato, {
 
-                        val intent = Intent(this, ContatosActivity::class.java)
-                        startActivity(intent)
+                        finish()
                     }, {
                         esconderFeedback(R.string.semConexao)
                     })
@@ -97,8 +93,8 @@ class ContatoInfoActivity : AppCompatActivity() {
                     ContatosBusiness.editarContato(contato, contatoId.toString(), {
                         //chamar proxima tela
 
-                        val intent = Intent(this, ContatosActivity::class.java)
-                        startActivity(intent)
+
+                        finish()
 
                     }, {
                         esconderFeedback(R.string.semConexao)
@@ -119,8 +115,7 @@ class ContatoInfoActivity : AppCompatActivity() {
 
             ContatosBusiness.deletarContato( contatoId, {
 
-                val intent = Intent(this, ContatosActivity::class.java)
-                startActivity(intent)
+                finish()
             }, {
 
                 esconderFeedback(R.string.semConexao)
@@ -129,13 +124,13 @@ class ContatoInfoActivity : AppCompatActivity() {
         }
     }
 
-    fun mostrarFeedback (){
+    private fun mostrarFeedback (){
         deletarContatoButton.isEnabled = false
         criarContatoButton.isEnabled = false
         criarContatoProgressBar.visibility = View.VISIBLE
     }
 
-    fun esconderFeedback(@StringRes mensagem:Int){
+    private fun esconderFeedback(@StringRes mensagem:Int){
         deletarContatoButton.isEnabled = true
         criarContatoButton.isEnabled = true
         criarContatoProgressBar.visibility = View.INVISIBLE

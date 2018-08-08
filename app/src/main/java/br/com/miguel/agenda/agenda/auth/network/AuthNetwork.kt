@@ -1,7 +1,5 @@
 package br.com.miguel.agenda.agenda.auth.network
 
-import android.support.annotation.StringRes
-import android.util.Log
 import br.com.miguel.agenda.R
 import br.com.miguel.agenda.agenda.auth.model.Usuario
 import io.reactivex.android.schedulers.AndroidSchedulers

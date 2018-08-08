@@ -1,6 +1,5 @@
 package br.com.miguel.agenda.agenda.contato.network
 
-import android.util.Log
 import br.com.miguel.agenda.agenda.auth.model.Usuario
 import br.com.miguel.agenda.agenda.contato.model.Contato
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -11,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ContatosNetwork {
 
-    val contatosApi by lazy {
+    private val contatosApi by lazy {
         ContatosNetwork.getRetrofit().create(ContatosAPI::class.java)
     }
 

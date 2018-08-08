@@ -1,6 +1,5 @@
 package br.com.miguel.agenda.agenda.contato.business
 
-import android.util.Log
 import br.com.miguel.agenda.agenda.auth.business.AuthBusiness
 import br.com.miguel.agenda.agenda.auth.database.AuthDatabase
 import br.com.miguel.agenda.agenda.auth.model.Usuario
