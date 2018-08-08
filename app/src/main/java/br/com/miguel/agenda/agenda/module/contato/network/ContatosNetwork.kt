@@ -1,12 +1,12 @@
 package br.com.miguel.agenda.agenda.module.contato.network
 
-import br.com.miguel.agenda.agenda.core.CoreNetwork
+import br.com.miguel.agenda.agenda.core.BaseNetwork
 import br.com.miguel.agenda.agenda.module.auth.model.Usuario
 import br.com.miguel.agenda.agenda.module.contato.model.Contato
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-object ContatosNetwork: CoreNetwork(){
+object ContatosNetwork: BaseNetwork(){
 
     const val contacts = "contacts"
     const val contactsId = "contacts/{id}"
@@ -17,6 +17,10 @@ object ContatosNetwork: CoreNetwork(){
     const val contentType = "Content-Type"
 
     const val id = "id"
+
+    val contatosApi by lazy {
+        getRetrofit().create(ContatosAPI::class.java)
+    }
 
     fun buscarContatos(uid: String, accessToken: String, client: String, onSuccess: (List<Contato>) -> Unit, onFailure: () -> Unit) {
 

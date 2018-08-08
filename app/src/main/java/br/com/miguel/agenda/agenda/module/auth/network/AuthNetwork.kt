@@ -1,12 +1,12 @@
 package br.com.miguel.agenda.agenda.module.auth.network
 
 import br.com.miguel.agenda.R
-import br.com.miguel.agenda.agenda.core.CoreNetwork
+import br.com.miguel.agenda.agenda.core.BaseNetwork
 import br.com.miguel.agenda.agenda.module.auth.model.Usuario
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-object AuthNetwork: CoreNetwork(){
+object AuthNetwork: BaseNetwork(){
 
     const val auth = "auth"
     const val signIn = "auth/sign_in"
@@ -15,6 +15,10 @@ object AuthNetwork: CoreNetwork(){
     const val uid = "uid"
     const val accessToken = "access-token"
     const val client = "client"
+
+    val authApi by lazy {
+        getRetrofit().create(AuthAPI::class.java)
+    }
 
     fun criarUsuario(user: Usuario, onSuccess: (usuario: Usuario) -> Unit, onFailure: (mensagem: Int) -> Unit) {
 
