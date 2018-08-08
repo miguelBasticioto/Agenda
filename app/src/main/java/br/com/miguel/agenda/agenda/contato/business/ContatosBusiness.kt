@@ -34,7 +34,7 @@ object ContatosBusiness {
         }
     }
 
-    fun listarContatosDatabase(): List<Contato> = ContatosDatabase.buscarContatos().sortedBy { it.name.toString().toLowerCase() }
+    fun listarContatosDatabase(): List<Contato> = ordenarListaContatos(ContatosDatabase.buscarContatos())
 
     fun listarContatosNetwork(onSuccess: (List<Contato>) -> Unit, onFailure: () -> Unit, usuario: Usuario) {
 
@@ -42,9 +42,13 @@ object ContatosBusiness {
 
             //Atualizar banco
 
-            ContatosDatabase.limparContatos {  }
-            ContatosDatabase.salvarContatos(contatos.sortedBy { it.name.toString().toLowerCase()})
-            onSuccess(contatos.sortedBy { it.name.toString().toLowerCase() })
+            val contatosOrdenados = ordenarListaContatos(contatos)
+
+            ContatosDatabase.limparContatos ()
+            ContatosDatabase.salvarContatos(contatosOrdenados)
+
+            onSuccess(contatosOrdenados)
+
         }, {
             onFailure()
         })
@@ -80,5 +84,7 @@ object ContatosBusiness {
         }
 
     }
+
+    private fun ordenarListaContatos (contatos: List<Contato>): List<Contato> = contatos.sortedBy { it.name.toString().toLowerCase() }
 
 }

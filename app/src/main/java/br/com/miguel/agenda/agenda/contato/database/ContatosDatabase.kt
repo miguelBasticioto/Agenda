@@ -60,12 +60,11 @@ object ContatosDatabase {
 
     }
 
-    fun limparContatos(onSuccess: () -> Unit){
+    fun limparContatos(){
 
         Realm.getDefaultInstance().use { realm ->
             realm.beginTransaction()
             realm.delete(Contato::class.java)
-            onSuccess()
             realm.commitTransaction()
         }
     }

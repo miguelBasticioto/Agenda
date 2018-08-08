@@ -29,15 +29,11 @@ object AuthBusiness {
 
         AuthNetwork.logarUsuario(user, { usuario ->
 
-            AuthDatabase.salvarUsuario(usuario, {
+            AuthDatabase.salvarUsuario(usuario) {
 
+                onSuccess(usuario)
 
-            }, {
-
-            })
-
-            onSuccess(usuario)
-
+            }
         }, onFailure)
 
     }
